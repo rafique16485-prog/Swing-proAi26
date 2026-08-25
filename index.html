@@ -1,0 +1,777 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#0a1020" />
+    <meta
+      name="description"
+      content="Swing-proAi26 AI trading research and decision-support platform."
+    />
+    <title>Swing-proAi26 | Research terminal</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <button class="avatar" data-route="settings" aria-label="Open settings">
+          SP
+        </button>
+        <div class="brand"><i>◈</i> Swing-pro<span>Ai26</span></div>
+        <button class="bell" data-route="alerts" aria-label="Open alerts">
+          ♢<b></b>
+        </button>
+      </header>
+      <section class="connection-bar">
+        <span class="status-dot demo"></span><strong>DEMO DATA</strong
+        ><span>Backend not connected</span
+        ><time id="updated-at">Last updated: —</time>
+      </section>
+
+      <section id="home" class="view active">
+        <div class="page-title">
+          <div>
+            <p class="overline">AI TRADING RESEARCH</p>
+            <h1>Good morning, trader.</h1>
+            <p class="subcopy">
+              Decision support, never a guaranteed prediction.
+            </p>
+          </div>
+          <button
+            class="icon-square"
+            data-route="search"
+            aria-label="Search stocks"
+          >
+            ⌕
+          </button>
+        </div>
+        <button class="global-search" data-route="search">
+          <span>⌕</span> Search stocks, indices, sectors... <kbd>⌘ K</kbd>
+        </button>
+        <section
+          class="index-strip"
+          id="index-strip"
+          aria-label="Market indices"
+        ></section>
+        <section class="section-title">
+          <div>
+            <p class="overline">MARKET PULSE</p>
+            <h2>Today's setup</h2>
+          </div>
+          <button class="text-btn" data-route="market">Market →</button>
+        </section>
+        <article class="verdict-card">
+          <div class="verdict-top">
+            <div>
+              <p>AI VERDICT <span class="data-pill">DEMO</span></p>
+              <h2>WAIT</h2>
+            </div>
+            <span class="quality"
+              ><b>64</b><small>/100<br />quality</small></span
+            >
+          </div>
+          <p class="verdict-reason">
+            NIFTY is holding above VWAP, but volume confirmation is absent. Wait
+            for a decisive breakout.
+          </p>
+          <div class="score-row">
+            <span>Confidence <b>61%</b></span
+            ><span>Bullish <b>54%</b></span
+            ><span>Risk <b>Moderate</b></span>
+          </div>
+          <button class="card-action" data-route="search">
+            Review AI research <span>→</span>
+          </button>
+        </article>
+        <section class="section-title">
+          <div>
+            <p class="overline">QUICK ACCESS</p>
+            <h2>Research workspace</h2>
+          </div>
+        </section>
+        <div class="module-grid">
+          <button data-route="scanner">
+            <i class="lavender">⌁</i><b>AI Scanner</b
+            ><small>Find qualified setups</small></button
+          ><button data-route="watchlist">
+            <i class="blue">☆</i><b>Watchlist</b
+            ><small>Track your symbols</small></button
+          ><button data-route="options">
+            <i class="orange">◌</i><b>Options Intel</b
+            ><small>OI & key strikes</small></button
+          ><button data-route="risk">
+            <i class="green">◒</i><b>Risk cockpit</b
+            ><small>Protect capital</small>
+          </button>
+        </div>
+        <section class="section-title">
+          <div>
+            <p class="overline">INSTITUTIONAL FLOW</p>
+            <h2>FII / DII pulse</h2>
+          </div>
+          <button class="text-btn" data-route="market">Details →</button>
+        </section>
+        <article class="flow-card">
+          <div>
+            <span>FII sentiment</span><strong class="neutral">NEUTRAL</strong
+            ><small>Awaiting secure data feed</small>
+          </div>
+          <div class="sentiment-ring">—<small>/100</small></div>
+        </article>
+      </section>
+
+      <section id="market" class="view">
+        <div class="page-title">
+          <div>
+            <p class="overline">LIVE MARKET DASHBOARD</p>
+            <h1>Market overview</h1>
+          </div>
+          <button
+            class="filter-chip"
+            data-toast="Market filters will be available after data connection"
+          >
+            ⌘ Filters
+          </button>
+        </div>
+        <article class="notice">
+          <b>Demo mode is active.</b> Quotes, volume, FII/DII and MCX values
+          require an authenticated market-data backend.
+        </article>
+        <div class="market-status">
+          <span><i class="status-dot demo"></i> Data state <b>DEMO</b></span
+          ><span>Market <b>Unknown</b></span
+          ><span>Feed <b>Disconnected</b></span>
+        </div>
+        <section class="section-title">
+          <div>
+            <p class="overline">INDICES</p>
+            <h2>India market</h2>
+          </div>
+          <span class="timestamp">Not connected</span>
+        </section>
+        <div class="quote-list" id="market-quotes"></div>
+        <section class="section-title">
+          <div>
+            <p class="overline">MCX WATCHLIST</p>
+            <h2>Commodities</h2>
+          </div>
+          <button
+            class="text-btn"
+            data-toast="Connect a broker feed to populate MCX"
+          >
+            Manage
+          </button>
+        </section>
+        <div class="empty-state">
+          <i>◌</i>
+          <h3>No market feed connected</h3>
+          <p>
+            Connect Upstox through a secure backend to load MCX quotes and
+            volumes.
+          </p>
+          <button data-route="settings">Set up broker connection</button>
+        </div>
+      </section>
+
+      <section id="scanner" class="view">
+        <div class="page-title">
+          <div>
+            <p class="overline">AI MARKET SCANNER</p>
+            <h1>Find qualified setups</h1>
+          </div>
+          <button
+            class="icon-square"
+            data-toast="Scanner filters are ready for API integration"
+          >
+            ☷
+          </button>
+        </div>
+        <div class="tabs" id="scanner-tabs">
+          <button class="active">Index</button><button>Stock</button
+          ><button>Swing</button><button>Intraday</button
+          ><button>Momentum</button><button>Breakout</button
+          ><button>Reversal</button>
+        </div>
+        <article class="notice">
+          <b>Scanner is waiting for data.</b> Results will appear only after the
+          market and AI analysis APIs return validated data.
+        </article>
+        <div class="scanner-head">
+          <span>SYMBOL</span><span>SETUP</span><span>SCORE</span
+          ><span>VERDICT</span>
+        </div>
+        <div class="empty-state compact">
+          <i>⌁</i>
+          <h3>No validated setups</h3>
+          <p>
+            Connect data, configure risk limits, then run the selected scanner.
+          </p>
+          <button id="run-scanner">Run scanner</button>
+        </div>
+      </section>
+
+      <section id="search" class="view">
+        <div class="page-title">
+          <div>
+            <p class="overline">AI STOCK SEARCH</p>
+            <h1>Research a symbol</h1>
+          </div>
+        </div>
+        <form class="search-form" id="stock-search">
+          <label for="stock-query">Search stocks, indices, sectors...</label>
+          <div>
+            <input
+              id="stock-query"
+              autocomplete="off"
+              placeholder="e.g. RELIANCE, NIFTY, IT sector"
+            /><button aria-label="Search">⌕</button>
+          </div>
+        </form>
+        <div id="search-empty" class="empty-state">
+          <i>⌕</i>
+          <h3>Research begins with a symbol</h3>
+          <p>
+            Search to access company fundamentals, technical context, AI
+            decision support and a trade-plan framework.
+          </p>
+        </div>
+        <div id="research-result" hidden>
+          <div class="research-hero">
+            <div>
+              <span class="data-pill">DEMO RESEARCH</span>
+              <h2 id="company-name">Reliance Industries</h2>
+              <p id="company-meta">RELIANCE · Energy · Integrated oil & gas</p>
+            </div>
+            <button class="watch-toggle" aria-label="Add to watchlist">
+              ☆
+            </button>
+          </div>
+          <div class="research-price">
+            <div>
+              <p>Current price <span class="data-pill">DELAYED</span></p>
+              <h2>—</h2>
+              <small>Connect quotes API to show price and change</small>
+            </div>
+            <button
+              class="text-btn"
+              data-toast="Price alerts require the alerts backend"
+            >
+              Set alert
+            </button>
+          </div>
+          <section class="section-title">
+            <div>
+              <p class="overline">AI DECISION ENGINE</p>
+              <h2>
+                AI verdict
+                <button class="why-button" data-modal="why-modal">Why?</button>
+              </h2>
+            </div>
+            <span class="timestamp">Analysis unavailable</span>
+          </section>
+          <article class="decision-card">
+            <div class="decision-label">
+              <strong>NO TRADE</strong
+              ><span>Awaiting verified market data</span>
+            </div>
+            <div class="metric-grid">
+              <div>
+                <span>Setup quality</span><b>—<small>/100</small></b>
+              </div>
+              <div>
+                <span>Confidence</span><b>—<small>%</small></b>
+              </div>
+              <div><span>Bias</span><b>—</b></div>
+              <div><span>Risk / reward</span><b>—</b></div>
+            </div>
+            <p>
+              AI analysis is decision support—not a prediction or investment
+              recommendation. Review every setup independently.
+            </p>
+          </article>
+          <section class="section-title">
+            <div>
+              <p class="overline">FUNDAMENTAL ANALYSIS</p>
+              <h2>Business snapshot</h2>
+            </div>
+            <span class="data-pill">API REQUIRED</span>
+          </section>
+          <div class="data-grid" id="fundamentals"></div>
+          <section class="section-title">
+            <div>
+              <p class="overline">TECHNICAL ANALYSIS</p>
+              <h2>Structure & indicators</h2>
+            </div>
+            <span class="data-pill">API REQUIRED</span>
+          </section>
+          <div class="technical-grid" id="technical"></div>
+          <section class="section-title">
+            <div>
+              <p class="overline">ENTRY / EXIT ENGINE</p>
+              <h2>Trade plan</h2>
+            </div>
+            <span class="data-pill">NO RECOMMENDATION</span>
+          </section>
+          <article class="trade-plan">
+            <div>
+              <span>Preferred entry</span><b>—</b
+              ><small>Confirmation required</small>
+            </div>
+            <div>
+              <span>Technical stop</span><b>—</b
+              ><small>Structure invalidation</small>
+            </div>
+            <div>
+              <span>Target 1 / 2 / 3</span><b>— / — / —</b
+              ><small>Risk/reward unavailable</small>
+            </div>
+            <footer>
+              Exit rules: target hit · trailing stop · structure failure ·
+              time-based exit
+            </footer>
+          </article>
+        </div>
+      </section>
+
+      <section id="watchlist" class="view">
+        <div class="page-title">
+          <div>
+            <p class="overline">WATCHLIST</p>
+            <h1>Symbols to watch</h1>
+          </div>
+          <button class="icon-square" id="add-symbol">＋</button>
+        </div>
+        <div class="toolbar">
+          <input id="watch-search" placeholder="Filter symbols" /><button
+            id="sort-watch"
+          >
+            Sort A–Z
+          </button>
+        </div>
+        <div class="watch-filters">
+          <button class="active">All</button><button>Alert on</button
+          ><button>Indices</button><button>Stocks</button>
+        </div>
+        <div class="watch-list" id="watch-list"></div>
+        <p class="footnote">
+          Prices are not shown until a secure quote API is connected. Alert
+          delivery requires a backend provider.
+        </p>
+      </section>
+
+      <section id="options" class="view">
+        <div class="page-title">
+          <div>
+            <p class="overline">OPTIONS INTELLIGENCE</p>
+            <h1>Option chain</h1>
+          </div>
+          <button class="filter-chip">NIFTY ⌄</button>
+        </div>
+        <article class="notice">
+          <b>Option chain unavailable.</b> Connect an authorized options-data
+          API to display OI, PCR, max pain, IV, Greeks and key strikes.
+        </article>
+        <div class="options-metrics">
+          <div><span>PCR</span><b>—</b></div>
+          <div><span>Max pain</span><b>—</b></div>
+          <div><span>ATM IV</span><b>—</b></div>
+          <div><span>Expiry</span><b>—</b></div>
+        </div>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>CALL OI</th>
+                <th>CHG OI</th>
+                <th>STRIKE</th>
+                <th>CHG OI</th>
+                <th>PUT OI</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="5">No live option-chain data available</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <article class="empty-state compact">
+          <i>◌</i>
+          <h3>Important strikes unavailable</h3>
+          <p>
+            OI-based support and resistance will be marked after the live feed
+            is connected.
+          </p>
+        </article>
+      </section>
+
+      <section id="news" class="view">
+        <div class="page-title">
+          <div>
+            <p class="overline">NEWS + EVENTS</p>
+            <h1>Market context</h1>
+          </div>
+          <button
+            class="icon-square"
+            data-toast="News filters are ready for API integration"
+          >
+            ☷
+          </button>
+        </div>
+        <div class="tabs">
+          <button class="active">All</button><button>Market</button
+          ><button>Companies</button><button>Events</button
+          ><button>Results</button>
+        </div>
+        <div class="empty-state">
+          <i>▤</i>
+          <h3>News feed is not connected</h3>
+          <p>
+            Items will include source, timestamp, affected symbol, importance,
+            and AI sentiment after the news API is configured.
+          </p>
+          <button data-route="settings">Configure data sources</button>
+        </div>
+        <section class="section-title">
+          <div>
+            <p class="overline">CALENDAR</p>
+            <h2>Upcoming events</h2>
+          </div>
+        </section>
+        <div class="event-list">
+          <div>
+            <span>RBI</span>
+            <p>Economic events require a calendar feed</p>
+            <b>—</b>
+          </div>
+          <div>
+            <span>EXP</span>
+            <p>Expiry calendar requires an instrument feed</p>
+            <b>—</b>
+          </div>
+        </div>
+      </section>
+
+      <section id="portfolio" class="view">
+        <div class="page-title">
+          <div>
+            <p class="overline">CAPITAL MANAGEMENT</p>
+            <h1>Portfolio cockpit</h1>
+          </div>
+          <button class="icon-square" data-route="risk">◒</button>
+        </div>
+        <div class="capital-grid">
+          <div>
+            <span>Total capital</span><b id="capital-display">₹500,000</b>
+          </div>
+          <div><span>Available capital</span><b>₹500,000</b></div>
+          <div><span>Deployed capital</span><b>₹0</b></div>
+          <div><span>Reserved risk</span><b>₹0</b></div>
+        </div>
+        <section class="section-title">
+          <div>
+            <p class="overline">PERFORMANCE</p>
+            <h2>Performance ledger</h2>
+          </div>
+          <span class="data-pill">DEMO</span>
+        </section>
+        <div class="performance-grid">
+          <div><span>Daily P&L</span><b>—</b></div>
+          <div><span>Weekly P&L</span><b>—</b></div>
+          <div><span>Monthly P&L</span><b>—</b></div>
+          <div><span>Max drawdown</span><b>—</b></div>
+          <div><span>Win rate</span><b>—</b></div>
+          <div><span>Profit factor</span><b>—</b></div>
+        </div>
+        <article class="notice">
+          <b>No brokerage account is connected.</b> Deployed capital, P&L and
+          trade statistics must come from your secure backend or imported
+          journal.
+        </article>
+      </section>
+
+      <section id="risk" class="view">
+        <div class="page-title">
+          <div>
+            <p class="overline">RISK MANAGEMENT</p>
+            <h1>Risk cockpit</h1>
+          </div>
+          <button class="icon-square" data-route="settings">⚙</button>
+        </div>
+        <article class="risk-banner">
+          <b>Risk limits are guardrails, not guarantees.</b
+          ><span
+            >Position sizing will never exceed your configured risk
+            amount.</span
+          >
+        </article>
+        <form id="risk-form" class="risk-form">
+          <label
+            >Total capital
+            <input name="capital" type="number" min="0" value="500000" /></label
+          ><label
+            >Risk per trade %
+            <input
+              name="riskPercent"
+              type="number"
+              min="0"
+              max="100"
+              step="0.1"
+              value="1" /></label
+          ><label
+            >Entry price
+            <input
+              name="entry"
+              type="number"
+              min="0"
+              step="0.01"
+              value="1000" /></label
+          ><label
+            >Stop loss
+            <input
+              name="stop"
+              type="number"
+              min="0"
+              step="0.01"
+              value="980" /></label
+          ><label
+            >Target price
+            <input
+              name="target"
+              type="number"
+              min="0"
+              step="0.01"
+              value="1040" /></label
+          ><label
+            >Maximum open positions
+            <input name="positions" type="number" min="1" value="4" /></label
+          ><label
+            >Maximum daily loss %
+            <input name="dailyLoss" type="number" min="0" value="2" /></label
+          ><label
+            >Minimum risk/reward
+            <input
+              name="minimumRr"
+              type="number"
+              min="1"
+              step="0.1"
+              value="2" /></label
+          ><label
+            >Stop-loss method
+            <select name="slMethod">
+              <option>Technical structure</option>
+              <option>ATR-based</option>
+              <option>Percentage-based</option>
+            </select></label
+          ><button class="primary-btn">Calculate safe position</button>
+        </form>
+        <div class="risk-result" id="risk-result" aria-live="polite"></div>
+        <p class="footnote">
+          Formula: Risk Amount = Capital × Risk %. Position Size = Risk Amount ÷
+          Stop Loss Distance. Final quantity is capped to preserve the risk
+          limit.
+        </p>
+      </section>
+
+      <section id="alerts" class="view">
+        <div class="page-title">
+          <div>
+            <p class="overline">ALERT CENTER</p>
+            <h1>Stay informed</h1>
+          </div>
+          <button class="icon-square" data-route="settings">⚙</button>
+        </div>
+        <div class="alert-summary">
+          <div><b>0</b><span>Unread</span></div>
+          <div><b>0</b><span>Critical</span></div>
+          <div><b>0</b><span>Risk</span></div>
+        </div>
+        <div class="tabs">
+          <button class="active">All</button><button>Trade</button
+          ><button>News</button><button>Risk</button><button>System</button>
+        </div>
+        <div class="empty-state">
+          <i>♢</i>
+          <h3>No alerts yet</h3>
+          <p>
+            Trade, news, risk and system notifications will appear here after
+            the alerts backend is configured.
+          </p>
+          <button data-route="settings">Configure notifications</button>
+        </div>
+      </section>
+
+      <section id="settings" class="view">
+        <div class="page-title">
+          <div>
+            <p class="overline">SETTINGS</p>
+            <h1>Connections & controls</h1>
+          </div>
+        </div>
+        <section class="section-title">
+          <div>
+            <p class="overline">BROKER CONNECTION</p>
+            <h2>Upstox API</h2>
+          </div>
+          <span class="data-pill">DISCONNECTED</span>
+        </section>
+        <article class="settings-card">
+          <div class="setting-row">
+            <div>
+              <b>OAuth 2.0 connection</b
+              ><small>Secure server-side authorization only</small>
+            </div>
+            <span class="status-text">Not connected</span>
+          </div>
+          <div class="setting-row">
+            <div>
+              <b>API / analytics token</b
+              ><small>No token is stored in this browser</small>
+            </div>
+            <span class="status-text">Unavailable</span>
+          </div>
+          <div class="setting-row">
+            <div>
+              <b>Token expiry</b
+              ><small>Provided by your backend after OAuth exchange</small>
+            </div>
+            <span class="status-text">—</span>
+          </div>
+          <div class="button-row">
+            <button class="primary-btn" id="connect-upstox">
+              Connect Upstox</button
+            ><button class="secondary-btn" id="test-upstox">
+              Test connection</button
+            ><button class="danger-btn" id="disconnect-upstox">
+              Disconnect
+            </button>
+          </div>
+          <p class="integration-note">
+            TODO backend: start Upstox OAuth at
+            <code>/api/upstox/connect</code>; exchange authorization codes and
+            retain tokens only server-side; proxy Market Data Feed V3 and REST
+            data to this UI.
+          </p>
+        </article>
+        <section class="section-title">
+          <div>
+            <p class="overline">WHATSAPP ALERTS</p>
+            <h2>Notifications</h2>
+          </div>
+          <span class="data-pill">BACKEND REQUIRED</span>
+        </section>
+        <article class="settings-card">
+          <label class="toggle-row"
+            ><span
+              ><b>Enable WhatsApp Alerts</b
+              ><small>Provider token stays on your secure backend</small></span
+            ><input id="whatsapp-enabled" type="checkbox" /><i></i></label
+          ><label class="input-label"
+            >Phone number
+            <input id="phone-number" type="tel" placeholder="+91 00000 00000"
+          /></label>
+          <div class="setting-row">
+            <div>
+              <b>Verification status</b
+              ><small>Phone verification uses your provider API</small>
+            </div>
+            <span class="status-text">Not verified</span>
+          </div>
+          <button class="secondary-btn" id="test-whatsapp">
+            Send test message
+          </button>
+          <div class="check-grid" id="alert-types">
+            <label><input type="checkbox" /> BUY setup</label
+            ><label><input type="checkbox" /> SELL setup</label
+            ><label><input type="checkbox" /> Breakout</label
+            ><label><input type="checkbox" /> Breakdown</label
+            ><label><input type="checkbox" /> Target reached</label
+            ><label><input type="checkbox" /> Stop loss</label
+            ><label><input type="checkbox" /> Market open/close</label
+            ><label><input type="checkbox" /> Major news / FII-DII</label
+            ><label><input type="checkbox" /> Risk limit reached</label>
+          </div>
+          <p class="integration-note">
+            TODO backend: configure a replaceable provider behind
+            <code>/api/notifications/whatsapp</code>. Never expose access tokens
+            in browser code.
+          </p>
+        </article>
+        <section class="section-title">
+          <div>
+            <p class="overline">TRADING RULE ENGINE</p>
+            <h2>Rules</h2>
+          </div>
+          <button
+            class="text-btn"
+            data-toast="Rules are saved locally until a backend is connected"
+          >
+            Save
+          </button>
+        </section>
+        <div class="rules" id="rules"></div>
+        <section class="section-title">
+          <div>
+            <p class="overline">MORE SETTINGS</p>
+            <h2>Platform</h2>
+          </div>
+        </section>
+        <div class="settings-menu">
+          <button data-route="risk">Risk settings <span>›</span></button
+          ><button data-route="portfolio">
+            Capital settings <span>›</span></button
+          ><button data-toast="Data preferences need a backend profile">
+            Data settings <span>›</span></button
+          ><button data-toast="AI preferences need a backend profile">
+            AI settings <span>›</span>
+          </button>
+        </div>
+      </section>
+    </main>
+    <nav class="bottom-nav" aria-label="Primary navigation">
+      <button class="nav-item active" data-route="home">
+        ⌂<span>Home</span></button
+      ><button class="nav-item" data-route="market">◫<span>Market</span></button
+      ><button class="nav-item nav-center" data-route="search">
+        ⌕<span>Search</span></button
+      ><button class="nav-item" data-route="scanner">
+        ⌁<span>Scanner</span></button
+      ><button class="nav-item" data-route="settings">
+        ⚙<span>Settings</span>
+      </button>
+    </nav>
+    <div class="modal-backdrop" id="modal-backdrop"></div>
+    <dialog id="why-modal">
+      <button class="close-modal" data-close-modal>×</button>
+      <p class="overline">AI EXPLANATION</p>
+      <h2>Why this verdict?</h2>
+      <div class="why-list">
+        <div>
+          <b>Trend</b><span>Unavailable without verified price data</span>
+        </div>
+        <div>
+          <b>Structure</b><span>HH/HL, LH/LL and BOS pending analysis</span>
+        </div>
+        <div>
+          <b>Momentum</b><span>RSI, MACD and volume pending analysis</span>
+        </div>
+        <div>
+          <b>Liquidity</b
+          ><span>Zones and sweep confirmation pending analysis</span>
+        </div>
+        <div>
+          <b>Risk</b
+          ><span
+            >Cannot be assessed until entry and invalidation are validated</span
+          >
+        </div>
+      </div>
+      <p class="dialog-note">
+        Final AI verdicts are decision support only. Validate price, structure,
+        risk and broker execution independently.
+      </p>
+    </dialog>
+    <div class="toast" id="toast" role="status"></div>
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
