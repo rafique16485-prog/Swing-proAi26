@@ -40,6 +40,11 @@ const rules = [
     "Require BOS, CHOCH or liquidity validation.",
   ],
 ];
+const orbitTransactions = [
+  ["☕", "Fellow Coffee", "Today · Food & drink", "−$5.40", ""],
+  ["↙", "Freelance payment", "Yesterday · Income", "+$840.00", "positive"],
+  ["♫", "Spotify", "Aug 22 · Entertainment", "−$10.99", ""],
+];
 let toastTimer;
 
 function showToast(message) {
@@ -98,6 +103,17 @@ function renderRules() {
         `<article class="rule"><label><input type="checkbox" ${index < 3 ? "checked" : ""}> ${title}<small>${description}</small></label><select aria-label="${title} status"><option>${index < 3 ? "PASS" : "WARNING"}</option><option>PASS</option><option>FAIL</option><option>WARNING</option></select></article>`,
     )
     .join("");
+}
+
+function renderOrbitTransactions() {
+  const markup = orbitTransactions
+    .map(
+      ([icon, name, meta, amount, tone]) =>
+        `<article class="orbit-transaction"><i>${icon}</i><div><b>${name}</b><small>${meta}</small></div><strong class="${tone}">${amount}</strong></article>`,
+    )
+    .join("");
+  $("#orbit-transactions").innerHTML = markup;
+  $("#orbit-all-transactions").innerHTML = markup + markup;
 }
 
 function showResearch(query) {
@@ -251,6 +267,31 @@ function bindEvents() {
   $("#test-whatsapp").addEventListener("click", () =>
     showToast("WhatsApp messages require a secure provider backend."),
   );
+  $$("[data-orbit-view]").forEach((button) =>
+    button.addEventListener("click", () => {
+      const viewId = button.dataset.orbitView;
+      $$(".orbit-view").forEach((view) =>
+        view.classList.toggle("active", view.id === viewId),
+      );
+      $$("[data-orbit-view]").forEach((tab) =>
+        tab.classList.toggle("active", tab === button),
+      );
+    }),
+  );
+  $$("[data-orbit-action]").forEach((button) =>
+    button.addEventListener("click", () =>
+      showToast(`${button.dataset.orbitAction} is ready in Orbit.`),
+    ),
+  );
+  $("#orbit-visibility").addEventListener("click", (event) => {
+    const balance = $("#orbit-balance-value");
+    const hidden = balance.textContent.includes("•");
+    balance.textContent = hidden ? "$12,480.50" : "••••••••";
+    event.currentTarget.textContent = hidden ? "◉" : "◌";
+  });
+  $("#orbit-details").addEventListener("click", () =>
+    showToast("Balance details opened in Orbit."),
+  );
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape" && $("#why-modal").open) closeWhyModal();
     if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "k") {
@@ -265,6 +306,7 @@ function init() {
   renderIndices();
   renderWatchlist();
   renderRules();
+  renderOrbitTransactions();
   bindEvents();
   $("#updated-at").textContent =
     `Last updated: ${new Intl.DateTimeFormat("en-GB", { day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit", second: "2-digit" }).format(new Date())} · DEMO`;

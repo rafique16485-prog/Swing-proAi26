@@ -104,6 +104,14 @@
             ><small>Protect capital</small>
           </button>
         </div>
+        <button class="orbit-launch" data-route="orbit">
+          <span>✦</span>
+          <div>
+            <b>Orbit personal dashboard</b
+            ><small>Open your existing money workspace</small>
+          </div>
+          <i>›</i>
+        </button>
         <section class="section-title">
           <div>
             <p class="overline">INSTITUTIONAL FLOW</p>
@@ -118,6 +126,139 @@
           </div>
           <div class="sentiment-ring">—<small>/100</small></div>
         </article>
+      </section>
+
+      <section id="orbit" class="view" aria-label="Orbit personal dashboard">
+        <div class="page-title">
+          <div>
+            <p class="overline">YOUR MONEY</p>
+            <h1>Orbit dashboard</h1>
+            <p class="subcopy">Your original personal finance workspace.</p>
+          </div>
+          <button
+            class="icon-square"
+            data-route="home"
+            aria-label="Back to research"
+          >
+            ←
+          </button>
+        </div>
+        <div class="orbit-tabs" id="orbit-tabs">
+          <button class="active" data-orbit-view="orbit-home">Home</button
+          ><button data-orbit-view="orbit-activity">Activity</button
+          ><button data-orbit-view="orbit-cards">Cards</button
+          ><button data-orbit-view="orbit-goals">Goals</button
+          ><button data-orbit-view="orbit-profile">Profile</button>
+        </div>
+        <div id="orbit-home" class="orbit-view active">
+          <article class="orbit-balance">
+            <p>
+              AVAILABLE BALANCE
+              <button id="orbit-visibility" aria-label="Hide balance">◉</button>
+            </p>
+            <h2 id="orbit-balance-value">$12,480.50</h2>
+            <div>
+              <span>↗ 12.8% <small>vs. last month</small></span
+              ><button id="orbit-details">View details →</button>
+            </div>
+          </article>
+          <div class="orbit-actions">
+            <button data-orbit-action="Send">↑<small>Send</small></button
+            ><button data-orbit-action="Request">↓<small>Request</small></button
+            ><button data-orbit-action="Add money">
+              ＋<small>Add money</small></button
+            ><button data-orbit-action="More">•••<small>More</small></button>
+          </div>
+          <section class="section-title">
+            <div>
+              <p class="overline">OVERVIEW</p>
+              <h2>Your spending</h2>
+            </div>
+            <button class="text-btn" data-orbit-action="Insights">
+              Insights →
+            </button>
+          </section>
+          <article class="orbit-spending">
+            <div>
+              <p>THIS MONTH</p>
+              <b>$2,642 <small>/ $3,500</small></b
+              ><i><span></span></i
+              ><small>You're <strong>$858</strong> under target</small>
+            </div>
+            <em>75<small>%</small></em>
+          </article>
+          <section class="section-title">
+            <div>
+              <p class="overline">RECENT ACTIVITY</p>
+              <h2>Latest transactions</h2>
+            </div>
+            <button class="text-btn" data-orbit-view="orbit-activity">
+              See all
+            </button>
+          </section>
+          <div class="orbit-transactions" id="orbit-transactions"></div>
+        </div>
+        <div id="orbit-activity" class="orbit-view">
+          <article class="orbit-summary">
+            <div><span>In</span><b>+$3,420</b></div>
+            <div><span>Out</span><b>−$2,642</b></div>
+          </article>
+          <p class="overline">AUGUST 2026</p>
+          <div class="orbit-transactions" id="orbit-all-transactions"></div>
+        </div>
+        <div id="orbit-cards" class="orbit-view">
+          <article class="orbit-card">
+            <b>VISA</b><span>▰</span>
+            <p>Orbit daily</p>
+            <h2>•••• &nbsp; 4821</h2>
+            <small>SAM LEE &nbsp; · &nbsp; 08/29</small>
+          </article>
+          <div class="orbit-control">
+            <button data-orbit-action="Card usage">
+              ◉ Card usage <b>On</b></button
+            ><button data-orbit-action="Spending limit">
+              ⌁ Spending limit <b>$1,500</b></button
+            ><button data-orbit-action="Card details">
+              □ View card details <b>›</b>
+            </button>
+          </div>
+        </div>
+        <div id="orbit-goals" class="orbit-view">
+          <article class="orbit-goal">
+            <i>✈</i>
+            <div><b>Lisbon getaway</b><small>October 2026</small></div>
+            <strong>$1,820</strong><span><em></em></span>
+            <p>
+              $680 to go
+              <button data-orbit-action="Goal contribution">Add money</button>
+            </p>
+          </article>
+          <article class="orbit-goal">
+            <i>⌂</i>
+            <div><b>New place fund</b><small>A fresh start</small></div>
+            <strong>$4,260</strong><span><em class="bluebar"></em></span>
+            <p>
+              $2,740 to go
+              <button data-orbit-action="Goal contribution">Add money</button>
+            </p>
+          </article>
+        </div>
+        <div id="orbit-profile" class="orbit-view">
+          <div class="orbit-profile">
+            <i>SL</i>
+            <h2>Sam Lee</h2>
+            <p>sam@orbit.money</p>
+          </div>
+          <div class="orbit-control">
+            <button data-orbit-action="Personal details">
+              ♙ Personal details <b>›</b></button
+            ><button data-orbit-action="Notifications">
+              ♧ Notifications <b>›</b></button
+            ><button data-orbit-action="Privacy & security">
+              ♢ Privacy & security <b>›</b></button
+            ><button data-orbit-action="Sign out">↪ Sign out</button>
+          </div>
+        </div>
       </section>
 
       <section id="market" class="view">
