@@ -2,869 +2,280 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta name="theme-color" content="#0a1020" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0d1022" />
     <meta
       name="description"
-      content="Swing-proAi26 AI trading research and decision-support platform."
+      content="Orbit is a calm, personal money dashboard."
     />
-    <title>Swing-proAi26 | Research terminal</title>
+    <title>Orbit — Money, in motion</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <main class="app-shell">
-      <header class="topbar">
-        <button class="avatar" data-route="settings" aria-label="Open settings">
-          SP
-        </button>
-        <div class="brand"><i>◈</i> Swing-pro<span>Ai26</span></div>
-        <button class="bell" data-route="alerts" aria-label="Open alerts">
-          ♢<b></b>
-        </button>
-      </header>
-      <section class="connection-bar">
-        <span class="status-dot demo"></span><strong>DEMO DATA</strong
-        ><span>Backend not connected</span
-        ><time id="updated-at">Last updated: —</time>
-      </section>
+      <section class="view active" id="home-view" aria-label="Home dashboard">
+        <header class="topbar">
+          <button
+            class="profile-button icon-button"
+            id="profile-button"
+            aria-label="Open profile menu"
+          >
+            <span>SL</span>
+          </button>
+          <div class="brand">
+            <span class="brand-mark">✦</span><span>orbit</span>
+          </div>
+          <button
+            class="icon-button notification-button"
+            id="notification-button"
+            aria-label="Notifications"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"
+              /></svg
+            ><i></i>
+          </button>
+        </header>
 
-      <section id="home" class="view active">
-        <div class="page-title">
+        <div class="greeting-row">
           <div>
-            <p class="overline">AI TRADING RESEARCH</p>
-            <h1>Good morning, trader.</h1>
-            <p class="subcopy">
-              Decision support, never a guaranteed prediction.
-            </p>
+            <p class="eyebrow">TUESDAY, 25 AUG</p>
+            <h1>Good morning, Sam.</h1>
           </div>
           <button
-            class="icon-square"
-            data-route="search"
-            aria-label="Search stocks"
+            class="month-switch"
+            id="month-switch"
+            aria-label="Change month"
           >
-            ⌕
+            August <span>⌄</span>
           </button>
         </div>
-        <button class="global-search" data-route="search">
-          <span>⌕</span> Search stocks, indices, sectors... <kbd>⌘ K</kbd>
-        </button>
-        <section
-          class="index-strip"
-          id="index-strip"
-          aria-label="Market indices"
-        ></section>
-        <section class="section-title">
-          <div>
-            <p class="overline">MARKET PULSE</p>
-            <h2>Today's setup</h2>
-          </div>
-          <button class="text-btn" data-route="market">Market →</button>
-        </section>
-        <article class="verdict-card">
-          <div class="verdict-top">
-            <div>
-              <p>AI VERDICT <span class="data-pill">DEMO</span></p>
-              <h2>WAIT</h2>
-            </div>
-            <span class="quality"
-              ><b>64</b><small>/100<br />quality</small></span
-            >
-          </div>
-          <p class="verdict-reason">
-            NIFTY is holding above VWAP, but volume confirmation is absent. Wait
-            for a decisive breakout.
-          </p>
-          <div class="score-row">
-            <span>Confidence <b>61%</b></span
-            ><span>Bullish <b>54%</b></span
-            ><span>Risk <b>Moderate</b></span>
-          </div>
-          <button class="card-action" data-route="search">
-            Review AI research <span>→</span>
-          </button>
-        </article>
-        <section class="section-title">
-          <div>
-            <p class="overline">QUICK ACCESS</p>
-            <h2>Research workspace</h2>
-          </div>
-        </section>
-        <div class="module-grid">
-          <button data-route="scanner">
-            <i class="lavender">⌁</i><b>AI Scanner</b
-            ><small>Find qualified setups</small></button
-          ><button data-route="watchlist">
-            <i class="blue">☆</i><b>Watchlist</b
-            ><small>Track your symbols</small></button
-          ><button data-route="options">
-            <i class="orange">◌</i><b>Options Intel</b
-            ><small>OI & key strikes</small></button
-          ><button data-route="risk">
-            <i class="green">◒</i><b>Risk cockpit</b
-            ><small>Protect capital</small>
-          </button>
-        </div>
-        <button class="orbit-launch" data-route="orbit">
-          <span>✦</span>
-          <div>
-            <b>Orbit personal dashboard</b
-            ><small>Open your existing money workspace</small>
-          </div>
-          <i>›</i>
-        </button>
-        <section class="section-title">
-          <div>
-            <p class="overline">INSTITUTIONAL FLOW</p>
-            <h2>FII / DII pulse</h2>
-          </div>
-          <button class="text-btn" data-route="market">Details →</button>
-        </section>
-        <article class="flow-card">
-          <div>
-            <span>FII sentiment</span><strong class="neutral">NEUTRAL</strong
-            ><small>Awaiting secure data feed</small>
-          </div>
-          <div class="sentiment-ring">—<small>/100</small></div>
-        </article>
-      </section>
 
-      <section id="orbit" class="view" aria-label="Orbit personal dashboard">
-        <div class="page-title">
-          <div>
-            <p class="overline">YOUR MONEY</p>
-            <h1>Orbit dashboard</h1>
-            <p class="subcopy">Your original personal finance workspace.</p>
-          </div>
-          <button
-            class="icon-square"
-            data-route="home"
-            aria-label="Back to research"
-          >
-            ←
-          </button>
-        </div>
-        <div class="orbit-tabs" id="orbit-tabs">
-          <button class="active" data-orbit-view="orbit-home">Home</button
-          ><button data-orbit-view="orbit-activity">Activity</button
-          ><button data-orbit-view="orbit-cards">Cards</button
-          ><button data-orbit-view="orbit-goals">Goals</button
-          ><button data-orbit-view="orbit-profile">Profile</button>
-        </div>
-        <div id="orbit-home" class="orbit-view active">
-          <article class="orbit-balance">
-            <p>
-              AVAILABLE BALANCE
-              <button id="orbit-visibility" aria-label="Hide balance">◉</button>
-            </p>
-            <h2 id="orbit-balance-value">$12,480.50</h2>
-            <div>
-              <span>↗ 12.8% <small>vs. last month</small></span
-              ><button id="orbit-details">View details →</button>
-            </div>
-          </article>
-          <div class="orbit-actions">
-            <button data-orbit-action="Send">↑<small>Send</small></button
-            ><button data-orbit-action="Request">↓<small>Request</small></button
-            ><button data-orbit-action="Add money">
-              ＋<small>Add money</small></button
-            ><button data-orbit-action="More">•••<small>More</small></button>
-          </div>
-          <section class="section-title">
-            <div>
-              <p class="overline">OVERVIEW</p>
-              <h2>Your spending</h2>
-            </div>
-            <button class="text-btn" data-orbit-action="Insights">
-              Insights →
-            </button>
-          </section>
-          <article class="orbit-spending">
-            <div>
-              <p>THIS MONTH</p>
-              <b>$2,642 <small>/ $3,500</small></b
-              ><i><span></span></i
-              ><small>You're <strong>$858</strong> under target</small>
-            </div>
-            <em>75<small>%</small></em>
-          </article>
-          <section class="section-title">
-            <div>
-              <p class="overline">RECENT ACTIVITY</p>
-              <h2>Latest transactions</h2>
-            </div>
-            <button class="text-btn" data-orbit-view="orbit-activity">
-              See all
-            </button>
-          </section>
-          <div class="orbit-transactions" id="orbit-transactions"></div>
-        </div>
-        <div id="orbit-activity" class="orbit-view">
-          <article class="orbit-summary">
-            <div><span>In</span><b>+$3,420</b></div>
-            <div><span>Out</span><b>−$2,642</b></div>
-          </article>
-          <p class="overline">AUGUST 2026</p>
-          <div class="orbit-transactions" id="orbit-all-transactions"></div>
-        </div>
-        <div id="orbit-cards" class="orbit-view">
-          <article class="orbit-card">
-            <b>VISA</b><span>▰</span>
-            <p>Orbit daily</p>
-            <h2>•••• &nbsp; 4821</h2>
-            <small>SAM LEE &nbsp; · &nbsp; 08/29</small>
-          </article>
-          <div class="orbit-control">
-            <button data-orbit-action="Card usage">
-              ◉ Card usage <b>On</b></button
-            ><button data-orbit-action="Spending limit">
-              ⌁ Spending limit <b>$1,500</b></button
-            ><button data-orbit-action="Card details">
-              □ View card details <b>›</b>
-            </button>
-          </div>
-        </div>
-        <div id="orbit-goals" class="orbit-view">
-          <article class="orbit-goal">
-            <i>✈</i>
-            <div><b>Lisbon getaway</b><small>October 2026</small></div>
-            <strong>$1,820</strong><span><em></em></span>
-            <p>
-              $680 to go
-              <button data-orbit-action="Goal contribution">Add money</button>
-            </p>
-          </article>
-          <article class="orbit-goal">
-            <i>⌂</i>
-            <div><b>New place fund</b><small>A fresh start</small></div>
-            <strong>$4,260</strong><span><em class="bluebar"></em></span>
-            <p>
-              $2,740 to go
-              <button data-orbit-action="Goal contribution">Add money</button>
-            </p>
-          </article>
-        </div>
-        <div id="orbit-profile" class="orbit-view">
-          <div class="orbit-profile">
-            <i>SL</i>
-            <h2>Sam Lee</h2>
-            <p>sam@orbit.money</p>
-          </div>
-          <div class="orbit-control">
-            <button data-orbit-action="Personal details">
-              ♙ Personal details <b>›</b></button
-            ><button data-orbit-action="Notifications">
-              ♧ Notifications <b>›</b></button
-            ><button data-orbit-action="Privacy & security">
-              ♢ Privacy & security <b>›</b></button
-            ><button data-orbit-action="Sign out">↪ Sign out</button>
-          </div>
-        </div>
-      </section>
-
-      <section id="market" class="view">
-        <div class="page-title">
-          <div>
-            <p class="overline">LIVE MARKET DASHBOARD</p>
-            <h1>Market overview</h1>
-          </div>
-          <button
-            class="filter-chip"
-            data-toast="Market filters will be available after data connection"
-          >
-            ⌘ Filters
-          </button>
-        </div>
-        <article class="notice">
-          <b>Demo mode is active.</b> Quotes, volume, FII/DII and MCX values
-          require an authenticated market-data backend.
-        </article>
-        <div class="market-status">
-          <span><i class="status-dot demo"></i> Data state <b>DEMO</b></span
-          ><span>Market <b>Unknown</b></span
-          ><span>Feed <b>Disconnected</b></span>
-        </div>
-        <section class="section-title">
-          <div>
-            <p class="overline">INDICES</p>
-            <h2>India market</h2>
-          </div>
-          <span class="timestamp">Not connected</span>
-        </section>
-        <div class="quote-list" id="market-quotes"></div>
-        <section class="section-title">
-          <div>
-            <p class="overline">MCX WATCHLIST</p>
-            <h2>Commodities</h2>
-          </div>
-          <button
-            class="text-btn"
-            data-toast="Connect a broker feed to populate MCX"
-          >
-            Manage
-          </button>
-        </section>
-        <div class="empty-state">
-          <i>◌</i>
-          <h3>No market feed connected</h3>
+        <article class="balance-card card">
+          <div class="balance-orb orb-one"></div>
+          <div class="balance-orb orb-two"></div>
           <p>
-            Connect Upstox through a secure backend to load MCX quotes and
-            volumes.
-          </p>
-          <button data-route="settings">Set up broker connection</button>
-        </div>
-      </section>
-
-      <section id="scanner" class="view">
-        <div class="page-title">
-          <div>
-            <p class="overline">AI MARKET SCANNER</p>
-            <h1>Find qualified setups</h1>
-          </div>
-          <button
-            class="icon-square"
-            data-toast="Scanner filters are ready for API integration"
-          >
-            ☷
-          </button>
-        </div>
-        <div class="tabs" id="scanner-tabs">
-          <button class="active">Index</button><button>Stock</button
-          ><button>Swing</button><button>Intraday</button
-          ><button>Momentum</button><button>Breakout</button
-          ><button>Reversal</button>
-        </div>
-        <article class="notice">
-          <b>Scanner is waiting for data.</b> Results will appear only after the
-          market and AI analysis APIs return validated data.
-        </article>
-        <div class="scanner-head">
-          <span>SYMBOL</span><span>SETUP</span><span>SCORE</span
-          ><span>VERDICT</span>
-        </div>
-        <div class="empty-state compact">
-          <i>⌁</i>
-          <h3>No validated setups</h3>
-          <p>
-            Connect data, configure risk limits, then run the selected scanner.
-          </p>
-          <button id="run-scanner">Run scanner</button>
-        </div>
-      </section>
-
-      <section id="search" class="view">
-        <div class="page-title">
-          <div>
-            <p class="overline">AI STOCK SEARCH</p>
-            <h1>Research a symbol</h1>
-          </div>
-        </div>
-        <form class="search-form" id="stock-search">
-          <label for="stock-query">Search stocks, indices, sectors...</label>
-          <div>
-            <input
-              id="stock-query"
-              autocomplete="off"
-              placeholder="e.g. RELIANCE, NIFTY, IT sector"
-            /><button aria-label="Search">⌕</button>
-          </div>
-        </form>
-        <div id="search-empty" class="empty-state">
-          <i>⌕</i>
-          <h3>Research begins with a symbol</h3>
-          <p>
-            Search to access company fundamentals, technical context, AI
-            decision support and a trade-plan framework.
-          </p>
-        </div>
-        <div id="research-result" hidden>
-          <div class="research-hero">
-            <div>
-              <span class="data-pill">DEMO RESEARCH</span>
-              <h2 id="company-name">Reliance Industries</h2>
-              <p id="company-meta">RELIANCE · Energy · Integrated oil & gas</p>
-            </div>
-            <button class="watch-toggle" aria-label="Add to watchlist">
-              ☆
-            </button>
-          </div>
-          <div class="research-price">
-            <div>
-              <p>Current price <span class="data-pill">DELAYED</span></p>
-              <h2>—</h2>
-              <small>Connect quotes API to show price and change</small>
-            </div>
+            AVAILABLE BALANCE
             <button
-              class="text-btn"
-              data-toast="Price alerts require the alerts backend"
+              class="visibility-button"
+              id="visibility-button"
+              aria-label="Hide balance"
             >
-              Set alert
+              ◉
             </button>
-          </div>
-          <section class="section-title">
-            <div>
-              <p class="overline">AI DECISION ENGINE</p>
-              <h2>
-                AI verdict
-                <button class="why-button" data-modal="why-modal">Why?</button>
-              </h2>
-            </div>
-            <span class="timestamp">Analysis unavailable</span>
-          </section>
-          <article class="decision-card">
-            <div class="decision-label">
-              <strong>NO TRADE</strong
-              ><span>Awaiting verified market data</span>
-            </div>
-            <div class="metric-grid">
-              <div>
-                <span>Setup quality</span><b>—<small>/100</small></b>
-              </div>
-              <div>
-                <span>Confidence</span><b>—<small>%</small></b>
-              </div>
-              <div><span>Bias</span><b>—</b></div>
-              <div><span>Risk / reward</span><b>—</b></div>
-            </div>
-            <p>
-              AI analysis is decision support—not a prediction or investment
-              recommendation. Review every setup independently.
-            </p>
-          </article>
-          <section class="section-title">
-            <div>
-              <p class="overline">FUNDAMENTAL ANALYSIS</p>
-              <h2>Business snapshot</h2>
-            </div>
-            <span class="data-pill">API REQUIRED</span>
-          </section>
-          <div class="data-grid" id="fundamentals"></div>
-          <section class="section-title">
-            <div>
-              <p class="overline">TECHNICAL ANALYSIS</p>
-              <h2>Structure & indicators</h2>
-            </div>
-            <span class="data-pill">API REQUIRED</span>
-          </section>
-          <div class="technical-grid" id="technical"></div>
-          <section class="section-title">
-            <div>
-              <p class="overline">ENTRY / EXIT ENGINE</p>
-              <h2>Trade plan</h2>
-            </div>
-            <span class="data-pill">NO RECOMMENDATION</span>
-          </section>
-          <article class="trade-plan">
-            <div>
-              <span>Preferred entry</span><b>—</b
-              ><small>Confirmation required</small>
-            </div>
-            <div>
-              <span>Technical stop</span><b>—</b
-              ><small>Structure invalidation</small>
-            </div>
-            <div>
-              <span>Target 1 / 2 / 3</span><b>— / — / —</b
-              ><small>Risk/reward unavailable</small>
-            </div>
-            <footer>
-              Exit rules: target hit · trailing stop · structure failure ·
-              time-based exit
-            </footer>
-          </article>
-        </div>
-      </section>
-
-      <section id="watchlist" class="view">
-        <div class="page-title">
-          <div>
-            <p class="overline">WATCHLIST</p>
-            <h1>Symbols to watch</h1>
-          </div>
-          <button class="icon-square" id="add-symbol">＋</button>
-        </div>
-        <div class="toolbar">
-          <input id="watch-search" placeholder="Filter symbols" /><button
-            id="sort-watch"
-          >
-            Sort A–Z
-          </button>
-        </div>
-        <div class="watch-filters">
-          <button class="active">All</button><button>Alert on</button
-          ><button>Indices</button><button>Stocks</button>
-        </div>
-        <div class="watch-list" id="watch-list"></div>
-        <p class="footnote">
-          Prices are not shown until a secure quote API is connected. Alert
-          delivery requires a backend provider.
-        </p>
-      </section>
-
-      <section id="options" class="view">
-        <div class="page-title">
-          <div>
-            <p class="overline">OPTIONS INTELLIGENCE</p>
-            <h1>Option chain</h1>
-          </div>
-          <button class="filter-chip">NIFTY ⌄</button>
-        </div>
-        <article class="notice">
-          <b>Option chain unavailable.</b> Connect an authorized options-data
-          API to display OI, PCR, max pain, IV, Greeks and key strikes.
-        </article>
-        <div class="options-metrics">
-          <div><span>PCR</span><b>—</b></div>
-          <div><span>Max pain</span><b>—</b></div>
-          <div><span>ATM IV</span><b>—</b></div>
-          <div><span>Expiry</span><b>—</b></div>
-        </div>
-        <div class="table-scroll">
-          <table>
-            <thead>
-              <tr>
-                <th>CALL OI</th>
-                <th>CHG OI</th>
-                <th>STRIKE</th>
-                <th>CHG OI</th>
-                <th>PUT OI</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td colspan="5">No live option-chain data available</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <article class="empty-state compact">
-          <i>◌</i>
-          <h3>Important strikes unavailable</h3>
-          <p>
-            OI-based support and resistance will be marked after the live feed
-            is connected.
           </p>
+          <h2 id="balance-value">$12,480.50</h2>
+          <div class="balance-footer">
+            <span><b class="up-arrow">↗</b> 12.8% <em>vs. last month</em></span
+            ><button id="details-button">View details <span>→</span></button>
+          </div>
         </article>
+
+        <section class="quick-actions" aria-label="Quick actions">
+          <button class="quick-action" data-action="send">
+            <span class="action-icon violet">↑</span>Send
+          </button>
+          <button class="quick-action" data-action="request">
+            <span class="action-icon coral">↓</span>Request
+          </button>
+          <button class="quick-action" data-action="add">
+            <span class="action-icon mint">＋</span>Add money
+          </button>
+          <button class="quick-action" data-action="more">
+            <span class="action-icon blue">•••</span>More
+          </button>
+        </section>
+
+        <section class="section-heading">
+          <div>
+            <p class="eyebrow">OVERVIEW</p>
+            <h2>Your spending</h2>
+          </div>
+          <button class="text-button" id="insights-button">
+            Insights <span>→</span>
+          </button>
+        </section>
+        <article class="spending-card card">
+          <div class="spending-copy">
+            <p>THIS MONTH</p>
+            <h3>$2,642 <span>/ $3,500</span></h3>
+            <div class="progress"><span></span></div>
+            <small>You're <b>$858</b> under your target</small>
+          </div>
+          <div class="donut" aria-label="75 percent of monthly target spent">
+            <span>75<small>%</small></span>
+          </div>
+        </article>
+
+        <section class="section-heading transactions-head">
+          <div>
+            <p class="eyebrow">RECENT ACTIVITY</p>
+            <h2>Latest transactions</h2>
+          </div>
+          <button class="text-button" id="see-all-button">See all</button>
+        </section>
+        <div class="transactions" id="transactions">
+          <article class="transaction">
+            <span class="merchant-icon coffee">☕</span>
+            <div>
+              <h3>Fellow Coffee</h3>
+              <p>Today · Food & drink</p>
+            </div>
+            <strong>−$5.40</strong>
+          </article>
+          <article class="transaction">
+            <span class="merchant-icon income">↙</span>
+            <div>
+              <h3>Freelance payment</h3>
+              <p>Yesterday · Income</p>
+            </div>
+            <strong class="positive">+$840.00</strong>
+          </article>
+          <article class="transaction">
+            <span class="merchant-icon music">♫</span>
+            <div>
+              <h3>Spotify</h3>
+              <p>Aug 22 · Entertainment</p>
+            </div>
+            <strong>−$10.99</strong>
+          </article>
+        </div>
       </section>
 
-      <section id="news" class="view">
-        <div class="page-title">
+      <section class="view" id="activity-view" aria-label="Activity">
+        <header class="simple-header">
           <div>
-            <p class="overline">NEWS + EVENTS</p>
-            <h1>Market context</h1>
+            <p class="eyebrow">YOUR MONEY</p>
+            <h1>Activity</h1>
+          </div>
+          <button class="filter-button" id="filter-button">
+            Filter <span>≡</span>
+          </button>
+        </header>
+        <div class="activity-summary card">
+          <div><span>In</span><strong class="positive">+$3,420</strong></div>
+          <div><span>Out</span><strong>−$2,642</strong></div>
+        </div>
+        <div class="date-label">AUGUST 2026</div>
+        <div class="transactions clone-transactions"></div>
+      </section>
+
+      <section class="view" id="cards-view" aria-label="Cards">
+        <header class="simple-header">
+          <div>
+            <p class="eyebrow">WALLET</p>
+            <h1>Your cards</h1>
           </div>
           <button
-            class="icon-square"
-            data-toast="News filters are ready for API integration"
+            class="round-add"
+            id="card-add-button"
+            aria-label="Add a card"
           >
-            ☷
+            ＋
+          </button>
+        </header>
+        <article class="virtual-card">
+          <div class="card-shine"></div>
+          <span class="visa">VISA</span><span class="chip">▰</span>
+          <p>Orbit daily</p>
+          <h2>•••• &nbsp; 4821</h2>
+          <div><span>SAM LEE</span><span>08/29</span></div>
+        </article>
+        <section class="section-heading">
+          <div>
+            <p class="eyebrow">CARD CONTROLS</p>
+            <h2>Stay in control</h2>
+          </div>
+        </section>
+        <div class="control-list">
+          <button data-toast="Card is ready to use">
+            <span>◉</span>Card usage <b>On</b></button
+          ><button data-toast="Spending limit is $1,500">
+            <span>⌁</span>Spending limit <b>$1,500</b></button
+          ><button data-toast="Your card details are secure">
+            <span>□</span>View card details <b>›</b>
           </button>
         </div>
-        <div class="tabs">
-          <button class="active">All</button><button>Market</button
-          ><button>Companies</button><button>Events</button
-          ><button>Results</button>
-        </div>
-        <div class="empty-state">
-          <i>▤</i>
-          <h3>News feed is not connected</h3>
-          <p>
-            Items will include source, timestamp, affected symbol, importance,
-            and AI sentiment after the news API is configured.
-          </p>
-          <button data-route="settings">Configure data sources</button>
-        </div>
-        <section class="section-title">
-          <div>
-            <p class="overline">CALENDAR</p>
-            <h2>Upcoming events</h2>
-          </div>
-        </section>
-        <div class="event-list">
-          <div>
-            <span>RBI</span>
-            <p>Economic events require a calendar feed</p>
-            <b>—</b>
-          </div>
-          <div>
-            <span>EXP</span>
-            <p>Expiry calendar requires an instrument feed</p>
-            <b>—</b>
-          </div>
-        </div>
       </section>
 
-      <section id="portfolio" class="view">
-        <div class="page-title">
+      <section class="view" id="goals-view" aria-label="Goals">
+        <header class="simple-header">
           <div>
-            <p class="overline">CAPITAL MANAGEMENT</p>
-            <h1>Portfolio cockpit</h1>
-          </div>
-          <button class="icon-square" data-route="risk">◒</button>
-        </div>
-        <div class="capital-grid">
-          <div>
-            <span>Total capital</span><b id="capital-display">₹500,000</b>
-          </div>
-          <div><span>Available capital</span><b>₹500,000</b></div>
-          <div><span>Deployed capital</span><b>₹0</b></div>
-          <div><span>Reserved risk</span><b>₹0</b></div>
-        </div>
-        <section class="section-title">
-          <div>
-            <p class="overline">PERFORMANCE</p>
-            <h2>Performance ledger</h2>
-          </div>
-          <span class="data-pill">DEMO</span>
-        </section>
-        <div class="performance-grid">
-          <div><span>Daily P&L</span><b>—</b></div>
-          <div><span>Weekly P&L</span><b>—</b></div>
-          <div><span>Monthly P&L</span><b>—</b></div>
-          <div><span>Max drawdown</span><b>—</b></div>
-          <div><span>Win rate</span><b>—</b></div>
-          <div><span>Profit factor</span><b>—</b></div>
-        </div>
-        <article class="notice">
-          <b>No brokerage account is connected.</b> Deployed capital, P&L and
-          trade statistics must come from your secure backend or imported
-          journal.
-        </article>
-      </section>
-
-      <section id="risk" class="view">
-        <div class="page-title">
-          <div>
-            <p class="overline">RISK MANAGEMENT</p>
-            <h1>Risk cockpit</h1>
-          </div>
-          <button class="icon-square" data-route="settings">⚙</button>
-        </div>
-        <article class="risk-banner">
-          <b>Risk limits are guardrails, not guarantees.</b
-          ><span
-            >Position sizing will never exceed your configured risk
-            amount.</span
-          >
-        </article>
-        <form id="risk-form" class="risk-form">
-          <label
-            >Total capital
-            <input name="capital" type="number" min="0" value="500000" /></label
-          ><label
-            >Risk per trade %
-            <input
-              name="riskPercent"
-              type="number"
-              min="0"
-              max="100"
-              step="0.1"
-              value="1" /></label
-          ><label
-            >Entry price
-            <input
-              name="entry"
-              type="number"
-              min="0"
-              step="0.01"
-              value="1000" /></label
-          ><label
-            >Stop loss
-            <input
-              name="stop"
-              type="number"
-              min="0"
-              step="0.01"
-              value="980" /></label
-          ><label
-            >Target price
-            <input
-              name="target"
-              type="number"
-              min="0"
-              step="0.01"
-              value="1040" /></label
-          ><label
-            >Maximum open positions
-            <input name="positions" type="number" min="1" value="4" /></label
-          ><label
-            >Maximum daily loss %
-            <input name="dailyLoss" type="number" min="0" value="2" /></label
-          ><label
-            >Minimum risk/reward
-            <input
-              name="minimumRr"
-              type="number"
-              min="1"
-              step="0.1"
-              value="2" /></label
-          ><label
-            >Stop-loss method
-            <select name="slMethod">
-              <option>Technical structure</option>
-              <option>ATR-based</option>
-              <option>Percentage-based</option>
-            </select></label
-          ><button class="primary-btn">Calculate safe position</button>
-        </form>
-        <div class="risk-result" id="risk-result" aria-live="polite"></div>
-        <p class="footnote">
-          Formula: Risk Amount = Capital × Risk %. Position Size = Risk Amount ÷
-          Stop Loss Distance. Final quantity is capped to preserve the risk
-          limit.
-        </p>
-      </section>
-
-      <section id="alerts" class="view">
-        <div class="page-title">
-          <div>
-            <p class="overline">ALERT CENTER</p>
-            <h1>Stay informed</h1>
-          </div>
-          <button class="icon-square" data-route="settings">⚙</button>
-        </div>
-        <div class="alert-summary">
-          <div><b>0</b><span>Unread</span></div>
-          <div><b>0</b><span>Critical</span></div>
-          <div><b>0</b><span>Risk</span></div>
-        </div>
-        <div class="tabs">
-          <button class="active">All</button><button>Trade</button
-          ><button>News</button><button>Risk</button><button>System</button>
-        </div>
-        <div class="empty-state">
-          <i>♢</i>
-          <h3>No alerts yet</h3>
-          <p>
-            Trade, news, risk and system notifications will appear here after
-            the alerts backend is configured.
-          </p>
-          <button data-route="settings">Configure notifications</button>
-        </div>
-      </section>
-
-      <section id="settings" class="view">
-        <div class="page-title">
-          <div>
-            <p class="overline">SETTINGS</p>
-            <h1>Connections & controls</h1>
-          </div>
-        </div>
-        <section class="section-title">
-          <div>
-            <p class="overline">BROKER CONNECTION</p>
-            <h2>Upstox API</h2>
-          </div>
-          <span class="data-pill">DISCONNECTED</span>
-        </section>
-        <article class="settings-card">
-          <div class="setting-row">
-            <div>
-              <b>OAuth 2.0 connection</b
-              ><small>Secure server-side authorization only</small>
-            </div>
-            <span class="status-text">Not connected</span>
-          </div>
-          <div class="setting-row">
-            <div>
-              <b>API / analytics token</b
-              ><small>No token is stored in this browser</small>
-            </div>
-            <span class="status-text">Unavailable</span>
-          </div>
-          <div class="setting-row">
-            <div>
-              <b>Token expiry</b
-              ><small>Provided by your backend after OAuth exchange</small>
-            </div>
-            <span class="status-text">—</span>
-          </div>
-          <div class="button-row">
-            <button class="primary-btn" id="connect-upstox">
-              Connect Upstox</button
-            ><button class="secondary-btn" id="test-upstox">
-              Test connection</button
-            ><button class="danger-btn" id="disconnect-upstox">
-              Disconnect
-            </button>
-          </div>
-          <p class="integration-note">
-            TODO backend: start Upstox OAuth at
-            <code>/api/upstox/connect</code>; exchange authorization codes and
-            retain tokens only server-side; proxy Market Data Feed V3 and REST
-            data to this UI.
-          </p>
-        </article>
-        <section class="section-title">
-          <div>
-            <p class="overline">WHATSAPP ALERTS</p>
-            <h2>Notifications</h2>
-          </div>
-          <span class="data-pill">BACKEND REQUIRED</span>
-        </section>
-        <article class="settings-card">
-          <label class="toggle-row"
-            ><span
-              ><b>Enable WhatsApp Alerts</b
-              ><small>Provider token stays on your secure backend</small></span
-            ><input id="whatsapp-enabled" type="checkbox" /><i></i></label
-          ><label class="input-label"
-            >Phone number
-            <input id="phone-number" type="tel" placeholder="+91 00000 00000"
-          /></label>
-          <div class="setting-row">
-            <div>
-              <b>Verification status</b
-              ><small>Phone verification uses your provider API</small>
-            </div>
-            <span class="status-text">Not verified</span>
-          </div>
-          <button class="secondary-btn" id="test-whatsapp">
-            Send test message
-          </button>
-          <div class="check-grid" id="alert-types">
-            <label><input type="checkbox" /> BUY setup</label
-            ><label><input type="checkbox" /> SELL setup</label
-            ><label><input type="checkbox" /> Breakout</label
-            ><label><input type="checkbox" /> Breakdown</label
-            ><label><input type="checkbox" /> Target reached</label
-            ><label><input type="checkbox" /> Stop loss</label
-            ><label><input type="checkbox" /> Market open/close</label
-            ><label><input type="checkbox" /> Major news / FII-DII</label
-            ><label><input type="checkbox" /> Risk limit reached</label>
-          </div>
-          <p class="integration-note">
-            TODO backend: configure a replaceable provider behind
-            <code>/api/notifications/whatsapp</code>. Never expose access tokens
-            in browser code.
-          </p>
-        </article>
-        <section class="section-title">
-          <div>
-            <p class="overline">TRADING RULE ENGINE</p>
-            <h2>Rules</h2>
+            <p class="eyebrow">LOOKING AHEAD</p>
+            <h1>Your goals</h1>
           </div>
           <button
-            class="text-btn"
-            data-toast="Rules are saved locally until a backend is connected"
+            class="round-add"
+            id="goal-add-button"
+            aria-label="Add a goal"
           >
-            Save
+            ＋
           </button>
-        </section>
-        <div class="rules" id="rules"></div>
-        <section class="section-title">
-          <div>
-            <p class="overline">MORE SETTINGS</p>
-            <h2>Platform</h2>
+        </header>
+        <article class="goal-card card">
+          <div class="goal-icon">✈</div>
+          <div class="goal-top">
+            <div>
+              <h3>Lisbon getaway</h3>
+              <p>October 2026</p>
+            </div>
+            <strong>$1,820</strong>
           </div>
-        </section>
-        <div class="settings-menu">
-          <button data-route="risk">Risk settings <span>›</span></button
-          ><button data-route="portfolio">
-            Capital settings <span>›</span></button
-          ><button data-toast="Data preferences need a backend profile">
-            Data settings <span>›</span></button
-          ><button data-toast="AI preferences need a backend profile">
-            AI settings <span>›</span>
+          <div class="progress purple"><span></span></div>
+          <p class="goal-note">
+            $680 to go
+            <button data-toast="A contribution has been scheduled">
+              Add money
+            </button>
+          </p>
+        </article>
+        <article class="goal-card card">
+          <div class="goal-icon yellow">⌂</div>
+          <div class="goal-top">
+            <div>
+              <h3>New place fund</h3>
+              <p>A fresh start</p>
+            </div>
+            <strong>$4,260</strong>
+          </div>
+          <div class="progress blue-progress"><span></span></div>
+          <p class="goal-note">
+            $2,740 to go
+            <button data-toast="A contribution has been scheduled">
+              Add money
+            </button>
+          </p>
+        </article>
+      </section>
+
+      <section class="view" id="profile-view" aria-label="Profile">
+        <header class="simple-header">
+          <div>
+            <p class="eyebrow">SETTINGS</p>
+            <h1>Profile</h1>
+          </div>
+        </header>
+        <div class="profile-hero">
+          <span>SL</span>
+          <h2>Sam Lee</h2>
+          <p>sam@orbit.money</p>
+        </div>
+        <div class="settings-list">
+          <button data-toast="Personal details opened">
+            <span>♙</span>Personal details <b>›</b></button
+          ><button data-toast="Notifications updated">
+            <span>♧</span>Notifications <b>›</b></button
+          ><button data-toast="Privacy settings opened">
+            <span>♢</span>Privacy & security <b>›</b></button
+          ><button data-toast="We'll miss you!" class="sign-out">
+            <span>↪</span>Sign out
           </button>
         </div>
       </section>
