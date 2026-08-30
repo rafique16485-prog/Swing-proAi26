@@ -1,329 +1,63 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#0d1022" />
-    <meta
-      name="description"
-      content="Orbit is a calm, personal money dashboard."
-    />
-    <title>Orbit — Money, in motion</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <main class="app-shell">
-      <section class="view active" id="home-view" aria-label="Home dashboard">
-        <header class="topbar">
-          <button
-            class="profile-button icon-button"
-            id="profile-button"
-            aria-label="Open profile menu"
-          >
-            <span>SL</span>
-          </button>
-          <div class="brand">
-            <span class="brand-mark">✦</span><span>orbit</span>
-          </div>
-          <button
-            class="icon-button notification-button"
-            id="notification-button"
-            aria-label="Notifications"
-          >
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path
-                d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"
-              /></svg
-            ><i></i>
-          </button>
-        </header>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#08111f">
+  <meta name="description" content="Swing Pro AI — mobile-first trading research terminal">
+  <title>Swing Pro AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark">✦</span><span>Swing Pro <b>AI</b></span></div>
+      <button class="icon-btn" id="alertsBtn" aria-label="Alerts">♧<i></i></button>
+    </header>
 
-        <div class="greeting-row">
-          <div>
-            <p class="eyebrow">TUESDAY, 25 AUG</p>
-            <h1>Good morning, Sam.</h1>
-          </div>
-          <button
-            class="month-switch"
-            id="month-switch"
-            aria-label="Change month"
-          >
-            August <span>⌄</span>
-          </button>
-        </div>
-
-        <article class="balance-card card">
-          <div class="balance-orb orb-one"></div>
-          <div class="balance-orb orb-two"></div>
-          <p>
-            AVAILABLE BALANCE
-            <button
-              class="visibility-button"
-              id="visibility-button"
-              aria-label="Hide balance"
-            >
-              ◉
-            </button>
-          </p>
-          <h2 id="balance-value">$12,480.50</h2>
-          <div class="balance-footer">
-            <span><b class="up-arrow">↗</b> 12.8% <em>vs. last month</em></span
-            ><button id="details-button">View details <span>→</span></button>
-          </div>
-        </article>
-
-        <section class="quick-actions" aria-label="Quick actions">
-          <button class="quick-action" data-action="send">
-            <span class="action-icon violet">↑</span>Send
-          </button>
-          <button class="quick-action" data-action="request">
-            <span class="action-icon coral">↓</span>Request
-          </button>
-          <button class="quick-action" data-action="add">
-            <span class="action-icon mint">＋</span>Add money
-          </button>
-          <button class="quick-action" data-action="more">
-            <span class="action-icon blue">•••</span>More
-          </button>
-        </section>
-
-        <section class="section-heading">
-          <div>
-            <p class="eyebrow">OVERVIEW</p>
-            <h2>Your spending</h2>
-          </div>
-          <button class="text-button" id="insights-button">
-            Insights <span>→</span>
-          </button>
-        </section>
-        <article class="spending-card card">
-          <div class="spending-copy">
-            <p>THIS MONTH</p>
-            <h3>$2,642 <span>/ $3,500</span></h3>
-            <div class="progress"><span></span></div>
-            <small>You're <b>$858</b> under your target</small>
-          </div>
-          <div class="donut" aria-label="75 percent of monthly target spent">
-            <span>75<small>%</small></span>
-          </div>
-        </article>
-
-        <section class="section-heading transactions-head">
-          <div>
-            <p class="eyebrow">RECENT ACTIVITY</p>
-            <h2>Latest transactions</h2>
-          </div>
-          <button class="text-button" id="see-all-button">See all</button>
-        </section>
-        <div class="transactions" id="transactions">
-          <article class="transaction">
-            <span class="merchant-icon coffee">☕</span>
-            <div>
-              <h3>Fellow Coffee</h3>
-              <p>Today · Food & drink</p>
-            </div>
-            <strong>−$5.40</strong>
-          </article>
-          <article class="transaction">
-            <span class="merchant-icon income">↙</span>
-            <div>
-              <h3>Freelance payment</h3>
-              <p>Yesterday · Income</p>
-            </div>
-            <strong class="positive">+$840.00</strong>
-          </article>
-          <article class="transaction">
-            <span class="merchant-icon music">♫</span>
-            <div>
-              <h3>Spotify</h3>
-              <p>Aug 22 · Entertainment</p>
-            </div>
-            <strong>−$10.99</strong>
-          </article>
-        </div>
+    <main>
+      <section class="hero">
+        <div><p class="eyebrow">MONDAY · 31 AUG 2026</p><h1>Market Command Center</h1><p class="muted">Research first. Risk first. Trade only when confirmed.</p></div>
+        <div class="market-pill"><span class="dot"></span><span id="marketState">Market watch</span></div>
       </section>
 
-      <section class="view" id="activity-view" aria-label="Activity">
-        <header class="simple-header">
-          <div>
-            <p class="eyebrow">YOUR MONEY</p>
-            <h1>Activity</h1>
-          </div>
-          <button class="filter-button" id="filter-button">
-            Filter <span>≡</span>
-          </button>
-        </header>
-        <div class="activity-summary card">
-          <div><span>In</span><strong class="positive">+$3,420</strong></div>
-          <div><span>Out</span><strong>−$2,642</strong></div>
-        </div>
-        <div class="date-label">AUGUST 2026</div>
-        <div class="transactions clone-transactions"></div>
+      <section class="index-grid">
+        <article class="index-card"><div class="card-head"><span>NIFTY 50</span><span class="chip up">+0.42%</span></div><strong>24,365.20</strong><small>+101.60 today</small><div class="spark"><span style="height:35%"></span><span style="height:48%"></span><span style="height:42%"></span><span style="height:62%"></span><span style="height:55%"></span><span style="height:78%"></span><span style="height:70%"></span><span style="height:88%"></span></div></article>
+        <article class="index-card"><div class="card-head"><span>BANK NIFTY</span><span class="chip up">+0.31%</span></div><strong>53,210.40</strong><small>+164.20 today</small><div class="spark"><span style="height:52%"></span><span style="height:45%"></span><span style="height:57%"></span><span style="height:49%"></span><span style="height:66%"></span><span style="height:61%"></span><span style="height:73%"></span><span style="height:81%"></span></div></article>
       </section>
 
-      <section class="view" id="cards-view" aria-label="Cards">
-        <header class="simple-header">
-          <div>
-            <p class="eyebrow">WALLET</p>
-            <h1>Your cards</h1>
-          </div>
-          <button
-            class="round-add"
-            id="card-add-button"
-            aria-label="Add a card"
-          >
-            ＋
-          </button>
-        </header>
-        <article class="virtual-card">
-          <div class="card-shine"></div>
-          <span class="visa">VISA</span><span class="chip">▰</span>
-          <p>Orbit daily</p>
-          <h2>•••• &nbsp; 4821</h2>
-          <div><span>SAM LEE</span><span>08/29</span></div>
-        </article>
-        <section class="section-heading">
-          <div>
-            <p class="eyebrow">CARD CONTROLS</p>
-            <h2>Stay in control</h2>
-          </div>
-        </section>
-        <div class="control-list">
-          <button data-toast="Card is ready to use">
-            <span>◉</span>Card usage <b>On</b></button
-          ><button data-toast="Spending limit is $1,500">
-            <span>⌁</span>Spending limit <b>$1,500</b></button
-          ><button data-toast="Your card details are secure">
-            <span>□</span>View card details <b>›</b>
-          </button>
-        </div>
+      <section class="panel signal-panel">
+        <div class="section-head"><div><p class="eyebrow">AI MARKET BIAS</p><h2>Trend &amp; structure</h2></div><span class="status-badge bullish">BULLISH</span></div>
+        <div class="signal-score"><div><strong>78</strong><span>/100</span></div><div class="score-track"><i></i></div></div>
+        <div class="signal-grid"><div><span>Trend</span><b>Uptrend</b></div><div><span>Structure</span><b>HH · HL</b></div><div><span>Momentum</span><b>Positive</b></div><div><span>Volume</span><b>Confirming</b></div></div>
+        <button class="primary" id="analyzeBtn">Run AI analysis <span>→</span></button>
       </section>
 
-      <section class="view" id="goals-view" aria-label="Goals">
-        <header class="simple-header">
-          <div>
-            <p class="eyebrow">LOOKING AHEAD</p>
-            <h1>Your goals</h1>
-          </div>
-          <button
-            class="round-add"
-            id="goal-add-button"
-            aria-label="Add a goal"
-          >
-            ＋
-          </button>
-        </header>
-        <article class="goal-card card">
-          <div class="goal-icon">✈</div>
-          <div class="goal-top">
-            <div>
-              <h3>Lisbon getaway</h3>
-              <p>October 2026</p>
-            </div>
-            <strong>$1,820</strong>
-          </div>
-          <div class="progress purple"><span></span></div>
-          <p class="goal-note">
-            $680 to go
-            <button data-toast="A contribution has been scheduled">
-              Add money
-            </button>
-          </p>
-        </article>
-        <article class="goal-card card">
-          <div class="goal-icon yellow">⌂</div>
-          <div class="goal-top">
-            <div>
-              <h3>New place fund</h3>
-              <p>A fresh start</p>
-            </div>
-            <strong>$4,260</strong>
-          </div>
-          <div class="progress blue-progress"><span></span></div>
-          <p class="goal-note">
-            $2,740 to go
-            <button data-toast="A contribution has been scheduled">
-              Add money
-            </button>
-          </p>
-        </article>
-      </section>
+      <section class="panel"><div class="section-head"><div><p class="eyebrow">MACRO DASHBOARD</p><h2>Market context</h2></div><button class="text-btn" id="refreshBtn">Refresh</button></div><div class="macro-grid">
+        <div class="metric"><span>India VIX</span><b>13.84</b><em class="green">−2.1%</em></div><div class="metric"><span>GIFT NIFTY</span><b>24,402</b><em class="green">+0.18%</em></div><div class="metric"><span>FII</span><b>+₹1,284 Cr</b><em class="green">Buying</em></div><div class="metric"><span>DII</span><b>+₹846 Cr</b><em class="green">Buying</em></div>
+      </div></section>
 
-      <section class="view" id="profile-view" aria-label="Profile">
-        <header class="simple-header">
-          <div>
-            <p class="eyebrow">SETTINGS</p>
-            <h1>Profile</h1>
-          </div>
-        </header>
-        <div class="profile-hero">
-          <span>SL</span>
-          <h2>Sam Lee</h2>
-          <p>sam@orbit.money</p>
-        </div>
-        <div class="settings-list">
-          <button data-toast="Personal details opened">
-            <span>♙</span>Personal details <b>›</b></button
-          ><button data-toast="Notifications updated">
-            <span>♧</span>Notifications <b>›</b></button
-          ><button data-toast="Privacy settings opened">
-            <span>♢</span>Privacy & security <b>›</b></button
-          ><button data-toast="We'll miss you!" class="sign-out">
-            <span>↪</span>Sign out
-          </button>
-        </div>
-      </section>
+      <section class="panel"><div class="section-head"><div><p class="eyebrow">SMART LEVELS</p><h2>NIFTY zones</h2></div><span class="mini-note">15 min</span></div><div class="levels"><div class="level resistance"><span>Resistance</span><b>24,520</b><small>Supply zone</small></div><div class="level pivot"><span>Pivot</span><b>24,365</b><small>Current price</small></div><div class="level support"><span>Support</span><b>24,180</b><small>Demand zone</small></div></div></section>
+
+      <section class="panel"><div class="section-head"><div><p class="eyebrow">SCANNER</p><h2>Stock ideas</h2></div><button class="text-btn" id="scanBtn">Scan market</button></div><div id="stockList" class="stock-list">
+        <button class="stock-row" data-symbol="RELIANCE"><span class="ticker">R</span><div><b>RELIANCE</b><small>Breakout · Volume ↑</small></div><strong class="green">BUY</strong><em>+1.8%</em></button>
+        <button class="stock-row" data-symbol="TCS"><span class="ticker blue-t">T</span><div><b>TCS</b><small>Demand hold · RSI 61</small></div><strong class="green">BUY</strong><em>+1.2%</em></button>
+        <button class="stock-row" data-symbol="HDFCBANK"><span class="ticker gold-t">H</span><div><b>HDFCBANK</b><small>Range · Wait for BOS</small></div><strong class="wait">WAIT</strong><em>+0.2%</em></button>
+      </div></section>
+
+      <section class="panel scanner-card"><div><p class="eyebrow">AI CHART SCANNER</p><h2>Upload a chart</h2><p class="muted">Get structure, liquidity, demand/supply and risk checkpoints.</p></div><button class="upload-btn" id="uploadBtn">＋ Scan chart</button><input id="chartInput" type="file" accept="image/*" hidden></section>
+
+      <section class="panel risk-panel"><div class="section-head"><div><p class="eyebrow">RISK MANAGER</p><h2>Position calculator</h2></div><span class="status-badge safe">RULE-BASED</span></div><div class="form-grid"><label>Entry<input id="entry" type="number" value="24365"></label><label>Stop loss<input id="stop" type="number" value="24280"></label><label>Capital<input id="capital" type="number" value="100000"></label><label>Risk %<input id="riskPct" type="number" value="1" step="0.1"></label></div><div class="risk-result"><span>Suggested quantity</span><b id="qty">11</b><small id="riskText">Max loss ≈ ₹935</small></div></section>
+
+      <section class="panel disclaimer"><b>⚠ Decision support only</b><p>Signals shown in this demo are illustrative until connected to verified live market data. Always validate price, liquidity, invalidation and broker execution before trading.</p></section>
     </main>
-    <nav class="bottom-nav" aria-label="Primary navigation">
-      <button class="nav-item active" data-route="home">
-        ⌂<span>Home</span></button
-      ><button class="nav-item" data-route="market">◫<span>Market</span></button
-      ><button class="nav-item nav-center" data-route="search">
-        ⌕<span>Search</span></button
-      ><button class="nav-item" data-route="scanner">
-        ⌁<span>Scanner</span></button
-      ><button class="nav-item" data-route="settings">
-        ⚙<span>Settings</span>
-      </button>
-    </nav>
-    <div class="modal-backdrop" id="modal-backdrop"></div>
-    <dialog id="why-modal">
-      <button class="close-modal" data-close-modal>×</button>
-      <p class="overline">AI EXPLANATION</p>
-      <h2>Why this verdict?</h2>
-      <div class="why-list">
-        <div>
-          <b>Trend</b><span>Unavailable without verified price data</span>
-        </div>
-        <div>
-          <b>Structure</b><span>HH/HL, LH/LL and BOS pending analysis</span>
-        </div>
-        <div>
-          <b>Momentum</b><span>RSI, MACD and volume pending analysis</span>
-        </div>
-        <div>
-          <b>Liquidity</b
-          ><span>Zones and sweep confirmation pending analysis</span>
-        </div>
-        <div>
-          <b>Risk</b
-          ><span
-            >Cannot be assessed until entry and invalidation are validated</span
-          >
-        </div>
-      </div>
-      <p class="dialog-note">
-        Final AI verdicts are decision support only. Validate price, structure,
-        risk and broker execution independently.
-      </p>
-    </dialog>
-    <div class="toast" id="toast" role="status"></div>
-    <script type="module" src="app.js"></script>
-  </body>
+
+    <nav class="bottom-nav"><button class="nav-item active" data-tab="home">⌂<span>Home</span></button><button class="nav-item" data-tab="market">◫<span>Market</span></button><button class="nav-item scan-nav" data-tab="scanner">⌁<span>Scanner</span></button><button class="nav-item" data-tab="watchlist">☆<span>Watchlist</span></button><button class="nav-item" data-tab="settings">⚙<span>Settings</span></button></nav>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+  <script type="module" src="app.js"></script>
+</body>
 </html>
