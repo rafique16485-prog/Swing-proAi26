@@ -2,7 +2,7 @@ const $=(s,p=document)=>p.querySelector(s);const $$=(s,p=document)=>[...p.queryS
 const toast=$('#toast');let timer;
 function showToast(message){if(!toast)return;toast.textContent=message;toast.classList.add('show');clearTimeout(timer);timer=setTimeout(()=>toast.classList.remove('show'),2400)}
 function calculateRisk(){const entry=Number($('#entry')?.value)||0,stop=Number($('#stop')?.value)||0,capital=Number($('#capital')?.value)||0,riskPct=Number($('#riskPct')?.value)||0;const perShare=Math.abs(entry-stop);const maxLoss=capital*riskPct/100;const qty=perShare?Math.floor(maxLoss/perShare):0;if($('#qty'))$('#qty').textContent=qty;if($('#riskText'))$('#riskText').textContent=`Max loss ≈ ₹${Math.round(qty*perShare).toLocaleString('en-IN')}`}
-['entry','stop','capital','riskPct'].forEach(id=>$('#'+id)?.addEventListener('input',calculateRisk));calculateRisk();
+['entry','stop','target','capital','riskPct'].forEach(id=>$('#'+id)?.addEventListener('input',calculateRisk));calculateRisk();
 $('#analyzeBtn')?.addEventListener('click',()=>showToast('AI analysis complete: bullish bias, wait for confirmation.'));
 $('#refreshBtn')?.addEventListener('click',()=>{showToast('Market snapshot refreshed. Demo data is illustrative.');if($('#marketState'))$('#marketState').textContent='Updated just now'});
 $('#scanBtn')?.addEventListener('click',()=>showToast('Scanner found 2 bullish setups and 1 WAIT setup.'));
@@ -11,15 +11,18 @@ $('#uploadBtn')?.addEventListener('click',()=>$('#chartInput')?.click());
 $('#chartInput')?.addEventListener('change',e=>{if(e.target.files?.[0])showToast('Chart received. AI scanner is ready for analysis.');});
 $$('.stock-row').forEach(row=>row.addEventListener('click',()=>showToast(`${row.dataset.symbol}: setup details opened.`)));
 
-// Reliable WhatsApp sharing on Android/mobile browsers.
+// WhatsApp shares ONLY the requested trade setup: Entry, Stop Loss, Target and Tips.
 const shareBtn=$('#shareBtn');
 if(shareBtn){
   shareBtn.type='button';
   shareBtn.addEventListener('click',()=>{
-    const text=`📊 Swing Pro AI — Market Setup\n\nNIFTY 50: 24,365.20 (+0.42%)\nBANK NIFTY: 53,210.40 (+0.31%)\nAI Bias: BULLISH 78/100\nTrend: Uptrend | Structure: HH · HL\nMomentum: Positive | Volume: Confirming\n\nNIFTY zones:\nResistance: 24,520\nPivot: 24,365\nSupport: 24,180\n\n⚠️ Decision support only. Verify live data before trading.\n\nSwing Pro AI: ${window.location.href}`;
+    const entry=$('#entry')?.value||'';
+    const stop=$('#stop')?.value||'';
+    const target=$('#target')?.value||'';
+    const text=`🎯 TRADE SETUP\n\nEntry: ${entry}\nStop Loss: ${stop}\nTarget: ${target}\n\n💡 Tips:\n• Enter only after confirmation.\n• Keep the Stop Loss fixed.\n• Book partial profit near Target.\n• Avoid overtrading and follow your risk limit.\n\n⚠️ For educational/decision support only.`;
     const whatsappUrl=`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
     showToast('Opening WhatsApp…');
-    setTimeout(()=>{ window.location.assign(whatsappUrl); },100);
+    setTimeout(()=>{window.location.assign(whatsappUrl)},100);
   });
 }
 
