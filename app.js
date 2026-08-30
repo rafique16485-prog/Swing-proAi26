@@ -1,95 +1,14 @@
-const $ = (selector, parent = document) => parent.querySelector(selector);
-const $$ = (selector, parent = document) => [
-  ...parent.querySelectorAll(selector),
-];
-const toast = $("#toast");
-const sheet = $("#action-sheet");
-const overlay = $("#overlay");
-let toastTimer;
-
-function showToast(message) {
-  toast.textContent = message;
-  toast.classList.add("show");
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => toast.classList.remove("show"), 2600);
-}
-
-function toggleSheet(show = !sheet.classList.contains("open")) {
-  sheet.classList.toggle("open", show);
-  overlay.classList.toggle("open", show);
-}
-
-function openView(viewId) {
-  $$(".view").forEach((view) =>
-    view.classList.toggle("active", view.id === viewId),
-  );
-  $$(".nav-item[data-view]").forEach((button) =>
-    button.classList.toggle("active", button.dataset.view === viewId),
-  );
-  window.scrollTo({ top: 0, behavior: "smooth" });
-}
-
-const transactions = $("#transactions").innerHTML;
-$(".clone-transactions").innerHTML = transactions + transactions;
-
-$$(".nav-item").forEach((button) =>
-  button.addEventListener("click", () => {
-    button.dataset.view ? openView(button.dataset.view) : toggleSheet(true);
-  }),
-);
-
-$$(".quick-action").forEach((button) =>
-  button.addEventListener("click", () => {
-    if (button.dataset.action === "more")
-      showToast("More tools are on their way.");
-    else toggleSheet(true);
-  }),
-);
-
-$("#sheet-close").addEventListener("click", () => toggleSheet(false));
-overlay.addEventListener("click", () => toggleSheet(false));
-$$("[data-toast]").forEach((button) =>
-  button.addEventListener("click", () => {
-    showToast(button.dataset.toast);
-    toggleSheet(false);
-  }),
-);
-
-$("#visibility-button").addEventListener("click", (event) => {
-  const value = $("#balance-value");
-  const hidden = value.textContent.includes("•");
-  value.textContent = hidden ? "$12,480.50" : "••••••••";
-  event.currentTarget.textContent = hidden ? "◉" : "◌";
-  event.currentTarget.setAttribute(
-    "aria-label",
-    hidden ? "Hide balance" : "Show balance",
-  );
-});
-
-$("#month-switch").addEventListener("click", () =>
-  showToast("Showing August 2026."),
-);
-$("#details-button").addEventListener("click", () =>
-  showToast("Balance details opened."),
-);
-$("#insights-button").addEventListener("click", () =>
-  showToast("Your insights are looking great."),
-);
-$("#see-all-button").addEventListener("click", () => openView("activity-view"));
-$("#profile-button").addEventListener("click", () => openView("profile-view"));
-$("#notification-button").addEventListener("click", () =>
-  showToast("You are all caught up."),
-);
-$("#filter-button").addEventListener("click", () =>
-  showToast("Filters are ready to customize."),
-);
-$("#card-add-button").addEventListener("click", () =>
-  showToast("Card application started."),
-);
-$("#goal-add-button").addEventListener("click", () =>
-  showToast("Let’s create a new goal."),
-);
-
-document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape") toggleSheet(false);
-});
+const $=(s,p=document)=>p.querySelector(s);const $$=(s,p=document)=>[...p.querySelectorAll(s)];
+const toast=$('#toast');let timer;
+function showToast(message){toast.textContent=message;toast.classList.add('show');clearTimeout(timer);timer=setTimeout(()=>toast.classList.remove('show'),2400)}
+function calculateRisk(){const entry=Number($('#entry').value)||0,stop=Number($('#stop').value)||0,capital=Number($('#capital').value)||0,riskPct=Number($('#riskPct').value)||0;const perShare=Math.abs(entry-stop);const maxLoss=capital*riskPct/100;const qty=perShare?Math.floor(maxLoss/perShare):0;$('#qty').textContent=qty;$('#riskText').textContent=`Max loss ≈ ₹${Math.round(qty*perShare).toLocaleString('en-IN')}`}
+['entry','stop','capital','riskPct'].forEach(id=>$('#'+id).addEventListener('input',calculateRisk));calculateRisk();
+$('#analyzeBtn').addEventListener('click',()=>{showToast('AI analysis complete: bullish bias, wait for confirmation.');});
+$('#refreshBtn').addEventListener('click',()=>{showToast('Market snapshot refreshed. Demo data is illustrative.');$('#marketState').textContent='Updated just now'});
+$('#scanBtn').addEventListener('click',()=>{showToast('Scanner found 2 bullish setups and 1 WAIT setup.');});
+$('#alertsBtn').addEventListener('click',()=>showToast('No new alerts.'));
+$('#uploadBtn').addEventListener('click',()=>$('#chartInput').click());
+$('#chartInput').addEventListener('change',e=>{if(e.target.files?.[0])showToast('Chart received. AI scanner is ready for analysis.');});
+$$('.stock-row').forEach(row=>row.addEventListener('click',()=>showToast(`${row.dataset.symbol}: setup details opened.`)));
+$$('.nav-item').forEach(btn=>btn.addEventListener('click',()=>{ $$('.nav-item').forEach(x=>x.classList.remove('active'));btn.classList.add('active');const tab=btn.dataset.tab;if(tab==='scanner'){$('#uploadBtn').scrollIntoView({behavior:'smooth',block:'center'});showToast('AI Chart Scanner ready.')}else if(tab==='market'){$('.signal-panel').scrollIntoView({behavior:'smooth',block:'center'});showToast('Market dashboard selected.')}else if(tab==='watchlist'){$('#stockList').scrollIntoView({behavior:'smooth',block:'center'});showToast('Watchlist selected.')}else if(tab==='settings')$('.disclaimer').scrollIntoView({behavior:'smooth',block:'center'});else window.scrollTo({top:0,behavior:'smooth'})}));
+window.addEventListener('load',()=>showToast('Swing Pro AI terminal loaded.'));
