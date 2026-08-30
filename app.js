@@ -1,8 +1,8 @@
 const $=(s,p=document)=>p.querySelector(s);const $$=(s,p=document)=>[...p.querySelectorAll(s)];
 const toast=$('#toast');let timer;
 function showToast(message){if(!toast)return;toast.textContent=message;toast.classList.add('show');clearTimeout(timer);timer=setTimeout(()=>toast.classList.remove('show'),2400)}
-function calculateRisk(){const entry=Number($('#entry')?.value)||0,stop=Number($('#stop')?.value)||0,capital=Number($('#capital')?.value)||0,riskPct=Number($('#riskPct')?.value)||0;const perShare=Math.abs(entry-stop);const maxLoss=capital*riskPct/100;const qty=perShare?Math.floor(maxLoss/perShare):0;if($('#qty'))$('#qty').textContent=qty;if($('#riskText'))$('#riskText').textContent=`Max loss ≈ ₹${Math.round(qty*perShare).toLocaleString('en-IN')}`}
-['entry','stop','target','capital','riskPct','strike'].forEach(id=>$('#'+id)?.addEventListener('input',calculateRisk));calculateRisk();
+function calculateRisk(){const entry=Number($('#entry')?.value)||0,stop=Number($('#stop')?.value)||0,capital=Number($('#capital')?.value)||0,riskPct=Number($('#riskPct')?.value)||0;const perUnit=Math.abs(entry-stop);const maxLoss=capital*riskPct/100;const qty=perUnit?Math.floor(maxLoss/perUnit):0;if($('#qty'))$('#qty').textContent=qty;if($('#riskText'))$('#riskText').textContent=`Max loss ≈ ₹${Math.round(qty*perUnit).toLocaleString('en-IN')}`}
+['entry','stop','target1','target2','target3','capital','riskPct','strike'].forEach(id=>$('#'+id)?.addEventListener('input',calculateRisk));calculateRisk();
 $('#analyzeBtn')?.addEventListener('click',()=>showToast('AI analysis complete: bullish bias, wait for confirmation.'));
 $('#refreshBtn')?.addEventListener('click',()=>{showToast('Market snapshot refreshed. Demo data is illustrative.');if($('#marketState'))$('#marketState').textContent='Updated just now'});
 $('#scanBtn')?.addEventListener('click',()=>showToast('Scanner found 2 bullish setups and 1 WAIT setup.'));
@@ -11,22 +11,19 @@ $('#uploadBtn')?.addEventListener('click',()=>$('#chartInput')?.click());
 $('#chartInput')?.addEventListener('change',e=>{if(e.target.files?.[0])showToast('Chart received. AI scanner is ready for analysis.');});
 $$('.stock-row').forEach(row=>row.addEventListener('click',()=>showToast(`${row.dataset.symbol}: setup details opened.`)));
 
-// WhatsApp shares only the option trade setup requested by the user.
+// WhatsApp: premium-based option setup only.
 const shareBtn=$('#shareBtn');
-if(shareBtn){
-  shareBtn.type='button';
-  shareBtn.addEventListener('click',()=>{
-    const optionType=$('#optionType')?.value||'CALL';
-    const strike=$('#strike')?.value||'';
-    const entry=$('#entry')?.value||'';
-    const stop=$('#stop')?.value||'';
-    const target=$('#target')?.value||'';
-    const text=`🎯 TRADE SETUP\n\nOption: ${optionType}\nStrike Price: ${strike}\nEntry: ${entry}\nStop Loss: ${stop}\nTarget: ${target}\n\n💡 Tips:\n• Enter only after confirmation.\n• Keep the Stop Loss fixed.\n• Book partial profit near Target.\n• Avoid overtrading and follow your risk limit.\n\n⚠️ For educational/decision support only.`;
-    const whatsappUrl=`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
-    showToast('Opening WhatsApp…');
-    setTimeout(()=>{window.location.assign(whatsappUrl)},100);
-  });
-}
+if(shareBtn){shareBtn.addEventListener('click',()=>{const type=$('#optionType')?.value||'CALL';const entry=$('#entry')?.value||'';const stop=$('#stop')?.value||'';const t1=$('#target1')?.value||'';const t2=$('#target2')?.value||'';const t3=$('#target3')?.value||'';const text=`🎯 TRADE SETUP\n\nOption: ${type}\nEntry: ₹${entry}\nStop Loss: ₹${stop}\nTarget 1: ₹${t1}\nTarget 2: ₹${t2}\nTarget 3: ₹${t3}\n\n💡 Tips:\n• Enter only after confirmation.\n• Keep Stop Loss fixed.\n• Book partial profit at targets.\n• Follow your risk limit and avoid overtrading.\n\n⚠️ Educational/decision support only.`;window.location.assign(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`);});}
 
-$$('.nav-item').forEach(btn=>btn.addEventListener('click',()=>{ $$('.nav-item').forEach(x=>x.classList.remove('active'));btn.classList.add('active');const tab=btn.dataset.tab;if(tab==='scanner'){$('#uploadBtn')?.scrollIntoView({behavior:'smooth',block:'center'});showToast('AI Chart Scanner ready.')}else if(tab==='market'){$('.signal-panel')?.scrollIntoView({behavior:'smooth',block:'center'});showToast('Market dashboard selected.')}else if(tab==='watchlist'){$('#stockList')?.scrollIntoView({behavior:'smooth',block:'center'});showToast('Watchlist selected.')}else if(tab==='settings')$('.disclaimer')?.scrollIntoView({behavior:'smooth',block:'center'});else window.scrollTo({top:0,behavior:'smooth'})}));
+// Trading journal: saved locally on this device/browser.
+const JOURNAL_KEY='swingProAI_trading_journal_v1';
+function getJournal(){try{return JSON.parse(localStorage.getItem(JOURNAL_KEY)||'[]')}catch{return[]}}
+function setJournal(rows){localStorage.setItem(JOURNAL_KEY,JSON.stringify(rows))}
+function renderJournal(){const box=$('#journalList');if(!box)return;const rows=getJournal();if(!rows.length){box.innerHTML='<div class="metric"><span>No saved trades yet</span><small>Save a trade and it will appear here.</small></div>';return}box.innerHTML=rows.slice().reverse().map((r,i)=>`<div class="stock-row"><div><b>${escapeHtml(r.date)} · ${escapeHtml(r.symbol||'-')}</b><small>${escapeHtml(r.option)} · Entry ₹${escapeHtml(r.entry)} → Exit ₹${escapeHtml(r.exit)} · Qty ${escapeHtml(r.qty)}</small></div><strong class="${Number(r.pnl)>=0?'green':'wait'}">₹${Number(r.pnl||0).toLocaleString('en-IN')}</strong></div>`).join('')}
+function escapeHtml(v){return String(v??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
+$('#saveJournalBtn')?.addEventListener('click',()=>{const row={date:$('#journalDate')?.value||new Date().toISOString().slice(0,10),symbol:$('#journalSymbol')?.value.trim()||'N/A',option:$('#journalOption')?.value||'CALL',entry:$('#journalEntry')?.value||'',exit:$('#journalExit')?.value||'',qty:$('#journalQty')?.value||'',pnl:$('#journalPnl')?.value||'0',notes:$('#journalNotes')?.value.trim()||''};if(!row.entry||!row.exit||!row.qty){showToast('Entry, Exit and Quantity are required.');return}const rows=getJournal();rows.push(row);setJournal(rows);renderJournal();['journalSymbol','journalEntry','journalExit','journalQty','journalPnl','journalNotes'].forEach(id=>{if($('#'+id))$('#'+id).value=''});showToast('Trade saved to journal.');});
+function exportJournal(){const rows=getJournal();if(!rows.length){showToast('No journal trades to export.');return}const header=['Date','Symbol','Option','Entry Premium','Exit Premium','Quantity','P&L (₹)','Notes'];const body=rows.map(r=>[r.date,r.symbol,r.option,r.entry,r.exit,r.qty,r.pnl,r.notes]);const esc=v=>`<td>${escapeHtml(v)}</td>`;const table=`<html><head><meta charset="UTF-8"></head><body><table border="1"><tr>${header.map(h=>`<th>${escapeHtml(h)}</th>`).join('')}</tr>${body.map(r=>`<tr>${r.map(esc).join('')}</tr>`).join('')}</table></body></html>`;const blob=new Blob([table],{type:'application/vnd.ms-excel'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`Swing-Pro-AI-Trading-Journal-${new Date().toISOString().slice(0,10)}.xls`;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);showToast('Excel journal downloaded.');}
+$('#exportJournalBtn')?.addEventListener('click',exportJournal);renderJournal();
+
+$$('.nav-item').forEach(btn=>btn.addEventListener('click',()=>{$$('.nav-item').forEach(x=>x.classList.remove('active'));btn.classList.add('active');const tab=btn.dataset.tab;if(tab==='scanner'){$('#uploadBtn')?.scrollIntoView({behavior:'smooth',block:'center'});showToast('AI Chart Scanner ready.')}else if(tab==='market'){$('.signal-panel')?.scrollIntoView({behavior:'smooth',block:'center'});showToast('Market dashboard selected.')}else if(tab==='watchlist'){$('#stockList')?.scrollIntoView({behavior:'smooth',block:'center'});showToast('Watchlist selected.')}else if(tab==='settings')$('.disclaimer')?.scrollIntoView({behavior:'smooth',block:'center'});else window.scrollTo({top:0,behavior:'smooth'})}));
 window.addEventListener('load',()=>showToast('Swing Pro AI terminal loaded.'));
