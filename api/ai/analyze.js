@@ -72,7 +72,9 @@ export default async function handler(req, res) {
   const prompt = `You are the chart-vision module of Swing Pro AI. Analyze the uploaded trading chart for decision support only. Symbol: ${symbol}. Timeframe: ${timeframe}.\n\nRules: read only what is actually visible. Do not invent prices, candles, indicators, liquidity, demand/supply zones or option levels. If an exact numeric level cannot be read confidently, return "Not clearly visible" for that field. Identify market structure, trend, momentum and obvious liquidity. Give a trade verdict only when the chart provides enough evidence; otherwise WAIT. Confidence is 0-100 and should reflect image quality and evidence, not certainty of future price. Keep the output concise. This is not financial advice. Return JSON matching the supplied schema.`;
 
   try {
-    const model = process.env.GEMINI_VISION_MODEL || "gemini-2.5-flash";
+    // Gemini 2.5 Flash is no longer accepted for new users. Use the current
+    // production Flash model and avoid deprecated Gemini 3.x sampling params.
+    const model = "gemini-3.7-flash";
     const response = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`,
       {
@@ -91,8 +93,7 @@ export default async function handler(req, res) {
           }],
           generationConfig: {
             responseMimeType: "application/json",
-            responseSchema: schema,
-            temperature: 0.2
+            responseSchema: schema
           }
         })
       }
