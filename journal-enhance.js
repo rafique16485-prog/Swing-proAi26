@@ -20,10 +20,31 @@ function calcJournalPnl(){
 function fixLotLabels(){
   document.querySelectorAll('label').forEach(l=>{if(l.textContent.trim()==='Quantity')l.childNodes[0].textContent='Lots';});
   const q=$j('qty'); if(q){const parent=q.closest('.risk-result');if(parent){const s=parent.querySelector('span');if(s)s.textContent='Suggested lots';}}
+  const jq=$j('journalQty'); if(jq){const label=jq.closest('label');if(label)label.childNodes[0].textContent='Lots (NIFTY = 65 qty)';}
 }
 function toast(msg){const t=$j('toast');if(t){t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200)}}
+function addClearButton(){
+  const panel=document.querySelector('.journal-panel');
+  const exportBtn=$j('exportJournalBtn');
+  if(!panel||$j('clearJournalBtn'))return;
+  const btn=document.createElement('button');
+  btn.id='clearJournalBtn';btn.type='button';btn.className='text-btn';btn.textContent='Clear Journal';
+  btn.style.marginLeft='10px';
+  exportBtn?.parentElement?.appendChild(btn);
+  btn.addEventListener('click',()=>{
+    if(!confirm('Clear all saved journal trades? This cannot be undone.'))return;
+    localStorage.removeItem(KEY);renderSummary();window.dispatchEvent(new Event('storage'));toast('Journal cleared.');
+  });
+}
+function renderSummary(){
+  const summary=$j('journalSummary');if(!summary)return;
+  let rows=[];try{rows=JSON.parse(localStorage.getItem(KEY)||'[]')}catch{}
+  const pnl=rows.reduce((s,r)=>s+(Number(r.pnl)||0),0);
+  summary.innerHTML=`<span>Journal summary</span><b>${rows.length} trades</b><small>Net P&L: ₹${pnl.toLocaleString('en-IN',{maximumFractionDigits:2})}</small>`;
+}
 function initJournalEnhance(){
   fixLotLabels();
+  addClearButton();
   const d=$j('journalDate'); if(d&&!d.value)d.value=new Date().toISOString().slice(0,10);
   ['journalEntry','journalExit','journalQty'].forEach(id=>$j(id)?.addEventListener('input',calcJournalPnl));
   $j('analyzeBtn')?.addEventListener('click',()=>setTimeout(()=>{fixLotLabels();fillJournalFromSetup()},900));
@@ -32,14 +53,13 @@ function initJournalEnhance(){
   save?.addEventListener('click',()=>setTimeout(()=>{
     const rows=JSON.parse(localStorage.getItem(KEY)||'[]');
     if(rows.length)rows[rows.length-1].id=Date.now();
-    localStorage.setItem(KEY,JSON.stringify(rows));
+    localStorage.setItem(KEY,JSON.stringify(rows));renderSummary();
   },50));
   const panel=document.querySelector('.journal-panel');
   if(panel){
     const summary=document.createElement('div'); summary.id='journalSummary'; summary.className='risk-result'; summary.style.marginBottom='10px';
-    panel.insertBefore(summary,panel.querySelector('.form-grid'));
-    const updateSummary=()=>{const rows=JSON.parse(localStorage.getItem(KEY)||'[]');const pnl=rows.reduce((s,r)=>s+(Number(r.pnl)||0),0);summary.innerHTML=`<span>Journal summary</span><b>${rows.length} trades</b><small>Net P&L: ₹${pnl.toLocaleString('en-IN',{maximumFractionDigits:2})}</small>`};
-    updateSummary(); window.addEventListener('storage',updateSummary); setInterval(updateSummary,1200);
+    panel.insertBefore(summary,panel.querySelector('.form-grid'));renderSummary();
+    window.addEventListener('storage',renderSummary);setInterval(renderSummary,1200);
   }
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initJournalEnhance);else initJournalEnhance();
