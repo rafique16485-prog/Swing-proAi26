@@ -38,9 +38,9 @@ function parseImageDataUrl(image) {
 
 function isRetryable(status, message = "") {
   const text = String(message).toLowerCase();
-  return status === 408 || status === 429 || status >= 500 ||
-    text.includes("high demand") || text.includes("temporarily") ||
-    text.includes("resource exhausted") || text.includes("overloaded");
+  return status === 408 || status === 429 || status === 500 || status === 502 || status === 503 || status === 504 ||
+    text.includes("high demand") || text.includes("temporarily") || text.includes("resource exhausted") ||
+    text.includes("overloaded") || text.includes("unavailable");
 }
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
@@ -68,12 +68,20 @@ export default async function handler(req, res) {
 
   const prompt = `You are the chart-vision module of Swing Pro AI. Analyze the uploaded trading chart for decision support only. Symbol: ${symbol}. Timeframe: ${timeframe}.\n\nRules: read only what is actually visible. Do not invent prices, candles, indicators, liquidity, demand/supply zones or option levels. If an exact numeric level cannot be read confidently, return "Not clearly visible" for that field. Identify market structure, trend, momentum and obvious liquidity. Give a trade verdict only when the chart provides enough evidence; otherwise WAIT. Confidence is 0-100 and should reflect image quality and evidence, not certainty of future price. Keep the output concise. This is not financial advice. Return JSON matching the supplied schema.`;
 
-  // Stable model first, then automatic fallback if the model is busy/unavailable.
-  const models = ["gemini-3.6-flash", "gemini-3.5-flash", "gemini-2.5-flash"];
-  const retryDelays = [800, 1800];
+  // Use current stable Gemini 3 models. If one model is busy or unavailable,
+  // automatically try a different multimodal model instead of showing a false
+  // "try again later" error to the user.
+  const models = [
+    "gemini-3.7-flash",
+    "gemini-3.6-flash",
+    "gemini-3.5-flash-lite",
+    "gemini-3.1-flash-lite"
+  ];
+  const retryDelays = [1000, 2500];
 
   try {
     let lastError = null;
+
     for (const model of models) {
       for (let attempt = 0; attempt <= retryDelays.length; attempt++) {
         try {
@@ -81,10 +89,22 @@ export default async function handler(req, res) {
             `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`,
             {
               method: "POST",
-              headers: { "Content-Type": "application/json", "x-goog-api-key": apiKey },
+              headers: {
+                "Content-Type": "application/json",
+                "x-goog-api-key": apiKey
+              },
               body: JSON.stringify({
-                contents: [{ role: "user", parts: [{ text: prompt }, { inlineData: imageData }] }],
-                generationConfig: { responseMimeType: "application/json", responseSchema: schema }
+                contents: [{
+                  role: "user",
+                  parts: [
+                    { text: prompt },
+                    { inlineData: imageData }
+                  ]
+                }],
+                generationConfig: {
+                  responseMimeType: "application/json",
+                  responseSchema: schema
+                }
               })
             }
           );
@@ -94,6 +114,9 @@ export default async function handler(req, res) {
 
           if (!response.ok) {
             lastError = { status: response.status, message, model };
+
+            // Retry temporary capacity/rate-limit failures, then move to the
+            // next model. Do not waste all attempts on one overloaded model.
             if (isRetryable(response.status, message) && attempt < retryDelays.length) {
               await sleep(retryDelays[attempt]);
               continue;
@@ -101,20 +124,29 @@ export default async function handler(req, res) {
             break;
           }
 
-          const text = data?.candidates?.[0]?.content?.parts?.map(part => part?.text || "").join("").trim();
+          const text = data?.candidates?.[0]?.content?.parts
+            ?.map(part => part?.text || "")
+            .join("")
+            .trim();
+
           if (!text) {
             lastError = { status: 502, message: "Gemini returned no analysis", model };
             break;
           }
 
           let analysis;
-          try { analysis = JSON.parse(text); }
-          catch {
+          try {
+            analysis = JSON.parse(text);
+          } catch {
             lastError = { status: 502, message: "Gemini returned invalid analysis JSON", model };
             break;
           }
 
-          return send(res, 200, { ok: true, analysis, model: data?.modelVersion || model });
+          return send(res, 200, {
+            ok: true,
+            analysis,
+            model: data?.modelVersion || model
+          });
         } catch (error) {
           lastError = { status: 502, message: error.message, model };
           if (attempt < retryDelays.length) {
@@ -127,10 +159,13 @@ export default async function handler(req, res) {
     }
 
     return send(res, 503, {
-      error: "Gemini vision service is temporarily unavailable. All configured models were tried.",
+      error: "Gemini vision is temporarily unavailable after trying all configured models.",
       detail: lastError?.message || "Unknown Gemini error"
     });
   } catch (error) {
-    return send(res, 502, { error: "Unable to reach Gemini vision service", detail: error.message });
+    return send(res, 502, {
+      error: "Unable to reach Gemini vision service",
+      detail: error.message
+    });
   }
 }
