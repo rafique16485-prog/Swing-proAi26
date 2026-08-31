@@ -1,20 +1,21 @@
 const KEY='swingProAI_trading_journal_v1';
+const NIFTY_LOT_SIZE=65;
 const $j=id=>document.getElementById(id);
 function fillJournalFromSetup(){
   const entry=$j('entry')?.value||'';
   const strike=$j('strike')?.value||'';
   const type=$j('optionType')?.value||'CALL';
-  const qty=$j('qty')?.textContent||'';
+  const lots=$j('qty')?.textContent||'';
   if($j('journalDate')&&!$j('journalDate').value)$j('journalDate').value=new Date().toISOString().slice(0,10);
   if($j('journalSymbol'))$j('journalSymbol').value=strike?`NIFTY ${strike}`:'NIFTY';
   if($j('journalOption'))$j('journalOption').value=type;
   if($j('journalEntry'))$j('journalEntry').value=entry;
-  if($j('journalQty'))$j('journalQty').value=qty;
+  if($j('journalQty'))$j('journalQty').value=lots;
   calcJournalPnl();
 }
 function calcJournalPnl(){
-  const e=Number($j('journalEntry')?.value)||0,x=Number($j('journalExit')?.value)||0,q=Number($j('journalQty')?.value)||0;
-  if($j('journalPnl')&&e&&x&&q)$j('journalPnl').value=((x-e)*q).toFixed(2);
+  const e=Number($j('journalEntry')?.value)||0,x=Number($j('journalExit')?.value)||0,lots=Number($j('journalQty')?.value)||0;
+  if($j('journalPnl')&&e&&x&&lots)$j('journalPnl').value=((x-e)*lots*NIFTY_LOT_SIZE).toFixed(2);
 }
 function toast(msg){const t=$j('toast');if(t){t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200)}}
 function initJournalEnhance(){
