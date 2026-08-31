@@ -12,19 +12,29 @@ export default async function handler(req, res) {
   if (!token) return res.status(500).json({ error: "UPSTOX_ACCESS_TOKEN is not configured" });
 
   const instrumentKey = req.query.instrument_key || "NSE_INDEX|Nifty 50";
-  const expiryDate = req.query.expiry_date;
-  if (!expiryDate) return res.status(400).json({ error: "expiry_date is required" });
+  const requestedExpiry = req.query.expiry_date || "current_week";
 
-  const url = new URL("https://api.upstox.com/v2/option/chain");
-  url.searchParams.set("instrument_key", instrumentKey);
-  url.searchParams.set("expiry_date", expiryDate);
-
-  try {
+  const callChain = async (expiry) => {
+    const url = new URL("https://api.upstox.com/v2/option/chain");
+    url.searchParams.set("instrument_key", instrumentKey);
+    url.searchParams.set("expiry_date", expiry);
     const response = await fetch(url, {
       headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
     });
     const data = await response.json();
-    return res.status(response.status).json(data);
+    return { response, data };
+  };
+
+  try {
+    let result = await callChain(requestedExpiry);
+
+    // NIFTY weekly expiry is not always Thursday. If the date supplied by
+    // the old frontend returns an empty chain, ask Upstox for current_week.
+    if (result.response.ok && (!Array.isArray(result.data?.data) || result.data.data.length === 0) && requestedExpiry !== "current_week") {
+      result = await callChain("current_week");
+    }
+
+    return res.status(result.response.status).json(result.data);
   } catch (error) {
     return res.status(502).json({ error: "Unable to reach Upstox", detail: error.message });
   }
