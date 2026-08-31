@@ -17,11 +17,16 @@ function calcJournalPnl(){
   const e=Number($j('journalEntry')?.value)||0,x=Number($j('journalExit')?.value)||0,lots=Number($j('journalQty')?.value)||0;
   if($j('journalPnl')&&e&&x&&lots)$j('journalPnl').value=((x-e)*lots*NIFTY_LOT_SIZE).toFixed(2);
 }
+function fixLotLabels(){
+  document.querySelectorAll('label').forEach(l=>{if(l.textContent.trim()==='Quantity')l.childNodes[0].textContent='Lots';});
+  const q=$j('qty'); if(q){const parent=q.closest('.risk-result');if(parent){const s=parent.querySelector('span');if(s)s.textContent='Suggested lots';}}
+}
 function toast(msg){const t=$j('toast');if(t){t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200)}}
 function initJournalEnhance(){
+  fixLotLabels();
   const d=$j('journalDate'); if(d&&!d.value)d.value=new Date().toISOString().slice(0,10);
   ['journalEntry','journalExit','journalQty'].forEach(id=>$j(id)?.addEventListener('input',calcJournalPnl));
-  $j('analyzeBtn')?.addEventListener('click',()=>setTimeout(fillJournalFromSetup,900));
+  $j('analyzeBtn')?.addEventListener('click',()=>setTimeout(()=>{fixLotLabels();fillJournalFromSetup()},900));
   $j('optionType')?.addEventListener('change',()=>{if($j('journalOption'))$j('journalOption').value=$j('optionType').value});
   const save=$j('saveJournalBtn');
   save?.addEventListener('click',()=>setTimeout(()=>{
