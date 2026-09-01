@@ -1,0 +1,16 @@
+/* Mobile-first brokerage-style layout */
+html,body{background:#02050a!important;overflow-x:hidden}
+.app-shell{width:100%;max-width:430px;min-height:100dvh;margin:auto;padding:10px 10px 76px;background:linear-gradient(180deg,#09111e 0%,#070d17 100%);box-shadow:0 0 45px rgba(0,0,0,.35)}
+.topbar{height:42px;margin-bottom:7px}.brand{font-size:19px}.icon-btn{width:36px;height:36px;border-radius:11px}
+.hero{gap:7px;margin-bottom:8px}.hero h1{font-size:19px;white-space:nowrap}.eyebrow{font-size:8px;margin-bottom:3px}.muted{font-size:9px}.market-pill{font-size:8px;padding:5px 7px}
+.index-grid{gap:6px;margin-bottom:7px}.index-card{padding:9px 10px;border-radius:13px}.index-card:nth-child(3){grid-column:auto}.index-card strong{font-size:17px}.index-card small{font-size:8px}.card-head{font-size:8px;margin-bottom:4px}
+.panel{padding:10px;margin-top:7px;border-radius:13px}.section-head{margin-bottom:7px}.section-head h2{font-size:14px}.signal-score{margin-bottom:7px}.signal-score strong{font-size:23px}.score-track{height:6px}.signal-grid{grid-template-columns:repeat(4,1fr);gap:4px;margin-bottom:7px}.signal-grid div{padding:6px}.signal-grid span{font-size:7px}.signal-grid b{font-size:8px}.primary{padding:8px;font-size:9px;border-radius:9px}
+.levels{grid-template-columns:repeat(3,1fr);gap:4px}.level{padding:7px 5px;border-radius:9px}.level b{font-size:11px}.level span,.level small{font-size:7px}
+.stock-list{gap:4px}.stock-row{grid-template-columns:29px 1fr auto auto;gap:6px;padding:6px;border-radius:9px}.ticker{width:27px;height:27px;border-radius:8px;font-size:9px}.stock-row b{font-size:9px}.stock-row small{font-size:7px}.stock-row strong,.stock-row em{font-size:8px}
+.scanner-card{gap:8px}.scanner-card h2{font-size:14px}.upload-btn{padding:7px 8px;font-size:8px;border-radius:8px}
+.form-grid{gap:5px}.form-grid label{font-size:8px}.form-grid input,.form-grid select{padding:6px;font-size:9px;border-radius:8px}.risk-result{padding:8px;margin-top:7px}.risk-result b{font-size:17px}.risk-result span,.risk-result small{font-size:8px}
+.disclaimer b{font-size:9px}.disclaimer p{font-size:8px}
+.bottom-nav{width:100%;max-width:430px;height:62px;padding:6px 3px env(safe-area-inset-bottom,0);border-top:1px solid #1c2a3d}.nav-item{min-width:50px;font-size:8px;gap:2px}
+.tab-hidden{display:none!important}
+.scan-result{margin-top:10px!important;padding:10px!important;border-radius:12px!important}.scan-result>div:nth-child(2){grid-template-columns:1fr 1fr!important;gap:5px!important}.scan-result>div:nth-child(2)>div{padding:8px!important}.scan-result h3{font-size:19px!important}.scan-result strong{font-size:9px}
+@media(min-width:431px){body{padding:14px 0}.app-shell{border-radius:22px;min-height:calc(100dvh - 28px)}.bottom-nav{bottom:14px;border-bottom-left-radius:22px;border-bottom-right-radius:22px}}
