@@ -6,11 +6,17 @@
 
   const groups={
     home:sections.slice(0,4),
-    market:[sections[3],sections[1],sections[0]],
+    market:[sections[0],sections[1],sections[2],sections[3]],
     scanner:[sections[5]],
     watchlist:[sections[4]],
-    settings:[sections[6],sections[7],sections[8],sections[9]]
+    settings:[sections[6],sections[7],sections[8]]
   };
+
+  const dateEl=document.querySelector('.hero .eyebrow');
+  if(dateEl){
+    const d=new Date();
+    dateEl.textContent=d.toLocaleDateString('en-IN',{weekday:'long',day:'2-digit',month:'short',year:'numeric'}).toUpperCase().replaceAll(',',' ·');
+  }
 
   function activate(tab){
     sections.forEach(s=>s.classList.add('tab-hidden'));
